@@ -1,6 +1,6 @@
 # babel-preset-react-app
 
-This package includes the Babel preset used by [Create React App](https://github.com/facebookincubator/create-react-app).  
+This package includes the Babel preset used by [Create React App](https://github.com/facebookincubator/create-react-app).<br>
 Please refer to its documentation:
 
 * [Getting Started](https://github.com/facebookincubator/create-react-app/blob/master/README.md#getting-started) – How to create a new app.
@@ -12,9 +12,15 @@ The easiest way to use this configuration is with [Create React App](https://git
 
 ## Usage Outside of Create React App
 
-If you want to use this ESLint configuration in a project not built with Create React App, you can install it with following steps.
+If you want to use this Babel preset in a project not built with Create React App, you can install it with following steps.
 
 First, [install Babel](https://babeljs.io/docs/setup/).
+
+Then install babel-preset-react-app.
+
+```sh
+npm install babel-preset-react-app --save-dev
+```
 
 Then create a file named `.babelrc` with following contents in the root folder of your project:
 
@@ -23,3 +29,5 @@ Then create a file named `.babelrc` with following contents in the root folder o
     "presets": ["react-app"]
   }
   ```
+
+This preset uses the `useBuiltIns` option with [transform-object-rest-spread](http://babeljs.io/docs/plugins/transform-object-rest-spread/) and [transform-react-jsx](http://babeljs.io/docs/plugins/transform-react-jsx/), which assumes that `Object.assign` is available or polyfilled.
