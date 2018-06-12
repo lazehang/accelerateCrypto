@@ -35,7 +35,7 @@ class Order extends React.Component {
           {orderIds.map(this.renderOrder)}
         </ul>
         <div className="total">
-          <strong>{formatPrice(total)}</strong>
+          <strong>Total: {formatPrice(total)}</strong>
         </div>
       </div>
     )

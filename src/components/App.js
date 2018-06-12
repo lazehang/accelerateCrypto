@@ -4,12 +4,25 @@ import Order from './Order';
 import Inventory from './Inventory';
 import sampleCoins from '../sample-coins';
 import Coin from './Coin';
+import base from '../base';
 
 class App extends React.Component {
   state = {
     coins: {},
     order: {}
   };
+
+  componentDidMount() {
+    const { params } = this.props.match;
+    this.ref = base.syncState(`${params.storeId}/coins`, {
+      context: this,
+      state: 'coins'
+    });
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
 
   addCoin = (coin) => {
     // 1. Take a copy of existing state
