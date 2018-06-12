@@ -4,7 +4,7 @@ const coins = {
     image: '/images/BTC.png',
     desc: 'The original cryptocurrency, digital gold.',
     price: 766700,
-    status: 'available'
+    status: 'unavailable'
   },
 
   coin2: {
