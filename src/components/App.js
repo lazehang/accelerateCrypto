@@ -49,7 +49,7 @@ class App extends React.Component {
             ))}
           </ul>
         </div>
-        <Order />
+        <Order coins={this.state.coins} order={this.state.order} />
         <Inventory addCoin={this.addCoin} loadSampleCoins={this.loadSampleCoins} addToOrder={this.addToOrder} />
       </div>
     );
