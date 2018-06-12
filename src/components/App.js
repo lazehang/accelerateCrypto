@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Order from './Order';
 import Inventory from './Inventory';
+import sampleCoins from '../sample-coins';
 
 class App extends React.Component {
   state = {
@@ -18,6 +19,10 @@ class App extends React.Component {
     this.setState({ coins });
   };
 
+  loadSampleCoins = () => {
+    this.setState({ coins: sampleCoins })
+  }
+
   render() {
     return (
       <div className="coin-of-the-day">
@@ -25,7 +30,7 @@ class App extends React.Component {
           <Header tagline='Crypto Market' />
         </div>
         <Order />
-        <Inventory addCoin={this.addCoin} />
+        <Inventory addCoin={this.addCoin} loadSampleCoins={this.loadSampleCoins} />
       </div>
     );
   }
