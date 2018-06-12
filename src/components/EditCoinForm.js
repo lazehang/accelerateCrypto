@@ -21,7 +21,7 @@ class EditCoinForm extends React.Component {
       </select>
       <textarea type="text" name='desc' onChange={this.handleChange} value={this.props.coin.desc} placeholder='Desc' />
       <input type="text" name='image' onChange={this.handleChange} value={this.props.coin.image} placeholder='Image' />
-
+      <button onClick={() => this.props.deleteCoin(this.props.index)}>Remove Coin</button>
     </div>
   }
 }

@@ -13,6 +13,7 @@ class Inventory extends React.Component {
             index={key}
             coin={this.props.coins[key]}
             updateCoin={this.props.updateCoin}
+            deleteCoin={this.props.deleteCoin}
           />
         )}
         <AddCoinForm addCoin={this.props.addCoin} />

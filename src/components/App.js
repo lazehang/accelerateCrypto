@@ -56,6 +56,15 @@ class App extends React.Component {
     this.setState({ coins });
   }
 
+  deleteCoin = (key) => {
+    // 1. Take copy of current state
+    const coins = { ...this.state.coins }
+    // 2. Update that state
+    coins[key] = null;
+    // 3. Set that to state
+    this.setState({ coins })
+  }
+
   loadSampleCoins = () => {
     this.setState({ coins: sampleCoins })
   }
@@ -65,6 +74,15 @@ class App extends React.Component {
     const order = { ...this.state.order }
     // 2. Either add to the order or update the order
     order[key] = order[key] + 1 || 1;
+    // 3. Set new order state
+    this.setState({ order })
+  }
+
+  removeFromOrder = (key) => {
+    // 1. Take a copy of existing state
+    const order = { ...this.state.order }
+    // 2. Remove coin from order
+    delete order[key]
     // 3. Set new order state
     this.setState({ order })
   }
@@ -85,10 +103,15 @@ class App extends React.Component {
             ))}
           </ul>
         </div>
-        <Order coins={this.state.coins} order={this.state.order} />
+        <Order
+          coins={this.state.coins}
+          order={this.state.order}
+          removeFromOrder={this.removeFromOrder}
+        />
         <Inventory
           addCoin={this.addCoin}
           updateCoin={this.updateCoin}
+          deleteCoin={this.deleteCoin}
           loadSampleCoins={this.loadSampleCoins}
           addToOrder={this.addToOrder}
           coins={this.state.coins}
