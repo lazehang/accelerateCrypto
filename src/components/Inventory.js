@@ -1,8 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AddCoinForm from './AddCoinForm';
 import EditCoinForm from './EditCoinForm';
 
 class Inventory extends React.Component {
+  static propTypes = {
+    coins: PropTypes.object,
+    addCoin: PropTypes.func,
+    updateCoin: PropTypes.func,
+    deleteCoin: PropTypes.func,
+    loadSampleCoins: PropTypes.func
+  }
+
   render() {
     return (
       <div className="inventory">

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class AddCoinForm extends React.Component {
   nameRef = React.createRef();
@@ -6,6 +7,10 @@ class AddCoinForm extends React.Component {
   statusRef = React.createRef();
   descRef = React.createRef();
   imageRef = React.createRef();
+
+  static propTypes = {
+    addCoin: PropTypes.func
+  }
 
   createCoin = (event) => {
     // 1. stop form submit
@@ -21,7 +26,6 @@ class AddCoinForm extends React.Component {
     this.props.addCoin(coin);
     // refresh form
     event.currentTarget.reset();
-
   }
 
   render() {

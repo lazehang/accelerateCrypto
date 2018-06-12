@@ -1,8 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class EditCoinForm extends React.Component {
+  static propTypes = {
+    coin: PropTypes.shape({
+      image: PropTypes.string,
+      name: PropTypes.string,
+      desc: PropTypes.string,
+      status: PropTypes.string,
+      // price: PropTypes.number
+    }),
+    index: PropTypes.string,
+    updateCoin: PropTypes.func
+  }
+
   handleChange = (event) => {
-    console.log(event.currentTarget.value);
     // update that coin
     // 1. Take copy of current coin
     const updatedCoin = {
@@ -11,6 +23,7 @@ class EditCoinForm extends React.Component {
     }
     this.props.updateCoin(this.props.index, updatedCoin);
   }
+
   render() {
     return <div className="coin-edit">
       <input type="text" name='name' onChange={this.handleChange} value={this.props.coin.name} placeholder='Name' />
