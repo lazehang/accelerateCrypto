@@ -5,7 +5,11 @@ class Order extends React.Component {
   renderOrder = (key) => {
     const coin = this.props.coins[key];
     const count = this.props.order[key];
-    const isAvailable = coin.status === 'available';
+    const isAvailable = coin && coin.status === 'available';
+
+    // Make sure the coins are loaded from Firebase before we continue
+    if (!coin) return null;
+
     if (!isAvailable) {
       return <li key={key}>
         Sorry {coin ? coin.name : 'coin'} is no longer available
