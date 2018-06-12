@@ -47,6 +47,15 @@ class App extends React.Component {
     this.setState({ coins });
   };
 
+  updateCoin = (key, updatedCoin) => {
+    // 1. Take copy of current state
+    const coins = { ...this.state.coins }
+    // 2. Update that state
+    coins[key] = updatedCoin;
+    // 3. Set that to state
+    this.setState({ coins });
+  }
+
   loadSampleCoins = () => {
     this.setState({ coins: sampleCoins })
   }
@@ -77,7 +86,13 @@ class App extends React.Component {
           </ul>
         </div>
         <Order coins={this.state.coins} order={this.state.order} />
-        <Inventory addCoin={this.addCoin} loadSampleCoins={this.loadSampleCoins} addToOrder={this.addToOrder} />
+        <Inventory
+          addCoin={this.addCoin}
+          updateCoin={this.updateCoin}
+          loadSampleCoins={this.loadSampleCoins}
+          addToOrder={this.addToOrder}
+          coins={this.state.coins}
+        />
       </div>
     );
   }
