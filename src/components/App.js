@@ -3,6 +3,7 @@ import Header from './Header';
 import Order from './Order';
 import Inventory from './Inventory';
 import sampleCoins from '../sample-coins';
+import Coin from './Coin';
 
 class App extends React.Component {
   state = {
@@ -28,6 +29,11 @@ class App extends React.Component {
       <div className="coin-of-the-day">
         <div className="menu">
           <Header tagline='Crypto Market' />
+          <ul className="coins">
+            {Object.keys(this.state.coins).map(key => (
+              <Coin key={key} details={this.state.coins[key]} />
+            ))}
+          </ul>
         </div>
         <Order />
         <Inventory addCoin={this.addCoin} loadSampleCoins={this.loadSampleCoins} />

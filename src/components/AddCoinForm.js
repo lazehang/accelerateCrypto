@@ -35,7 +35,7 @@ class AddCoinForm extends React.Component {
         </select>
         <textarea name='desc' ref={this.descRef} placeholder='Desc' />
         <input name='image' ref={this.imageRef} type='text' placeholder='Image' />
-        <button type="submit">Add Coin</button>
+        <button type="submit">+ Add Coin</button>
       </form>
     )
   }

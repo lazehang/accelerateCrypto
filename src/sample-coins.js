@@ -33,7 +33,7 @@ const coins = {
 
   coin5: {
     name: 'IOTA',
-    image: '/images/IOTA.png',
+    image: '/images/IOT.png',
     desc: 'Internet-of-things payments.',
     price: 200,
     status: 'available'

@@ -522,7 +522,7 @@ ul.order li span.count span {
 }
 .menu-coin img {
   float: left;
-  width: 150px;
+  width: 75px; /* default 150px */
   margin-right: 1rem;
 }
 button,
