@@ -1,6 +1,14 @@
 
 # Created by https://www.gitignore.io/api/node,macos,windows,firebase
 
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history
+
 ### Firebase ###
 .idea
 **/node_modules/*
