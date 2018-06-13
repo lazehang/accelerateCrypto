@@ -120,6 +120,7 @@ class App extends React.Component {
           loadSampleCoins={this.loadSampleCoins}
           addToOrder={this.addToOrder}
           coins={this.state.coins}
+          storeId={this.props.match.params.storeId}
         />
       </div>
     );
