@@ -17,7 +17,7 @@ Coin Of The Day cryptocurrency market app built using ReactJS
 6. Click "Project Overview" in sidebar and select "Add Firebase to your webapp"
 7. From the pop-up snippet copy apiKey, authDomain, databaseURL values and replace these in the `base.js` file
 8. Click "Authentication" in sidebar and select "Sign-in method" tab
-9. Enable "Facebook" and "Twitter" and paste in your App ID & App secret (from [Facebook developer](https://developers.facebook.com/) & [Twitter developer](https://apps.twitter.com/))
+9. Enable "Facebook" and "Twitter" and paste in your App ID & App secret (create new apps on [Facebook developer](https://developers.facebook.com/) & [Twitter developer](https://apps.twitter.com/))
 10. `npm start`
 11. [Optional] If you change any css, run `npm run watch` so that webpack recompiles the CSS
 
