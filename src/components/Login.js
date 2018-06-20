@@ -1,19 +1,56 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import { loginUser } from '../redux/auth/actions';
+import { connect } from 'react-redux';
 
-const Login = (props) => {
-  return (
-    <nav className='login'>
-      <h2>Inventory Login</h2>
-      <p>Sign in to manage your store</p>
-      <button className="facebook" onClick={() => props.authenticate('Facebook')}>Login with Facebook</button>
-      <button className="twitter" onClick={() => props.authenticate('Twitter')}>Login with Twitter</button>
-    </nav>
-  )
-};
 
-Login.propTypes = {
-  authenticate: PropTypes.func.isRequired
-};
+class PureLogin extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      username: "",
+      password: ""
+    };
+  }
+
+ onChangeField = (field, e) => {
+    const state = {};
+    state[field] = e.currentTarget.value;
+
+    this.setState(state);
+  };
+
+  login = () => {
+    this.props.login(this.state.username, this.state.password);
+    this.props.history.push(this.props.history.location.state.from.pathname);
+  };
+
+  render() {
+    return (
+      <div className="Login">
+      Username:{" "}
+        <input
+          onChange={this.onChangeField.bind(this, "username")}
+          type="text"
+          value={this.state.username}
+        />
+        <br />
+        Password:{" "}
+        <input
+          onChange={this.onChangeField.bind(this, "password")}
+          type="password"
+          value={this.state.password}
+        />
+        <br />
+        <button onClick={this.login}>Log in</button>
+      </div>
+    );
+  }
+}
+
+const Login = connect(null, (dispatch) => ({
+  login: (username, password) => dispatch(loginUser(username, password))
+}))(PureLogin)
 
 export default Login;
+
