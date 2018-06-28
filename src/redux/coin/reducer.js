@@ -1,4 +1,4 @@
-import { ADD_COINS, CLEAR_COINS, SOCKET_UPDATE_COINS } from "./actions";
+import { ADD_COINS, CLEAR_COINS, ADD_TO_TRANSACT, SOCKET_UPDATE_COINS } from "./actions";
 
 
 const initialState = {
@@ -23,6 +23,6 @@ export function reducer(oldState = initialState, action) {
             }
         default:
             // ALWAYS have a default case in a reducer
-            return oldState;
+            { return oldState; }
     }
 }

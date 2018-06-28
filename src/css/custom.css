@@ -1,0 +1,13 @@
+#mainNav {
+    box-shadow: 0px 1px grey !important;
+}
+
+.card-img-over {
+    width: 250px;
+    height: auto;
+    margin-top: 5px;
+}
+
+.modal-content {
+    height: 40rem !important;
+}

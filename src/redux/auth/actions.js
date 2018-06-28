@@ -5,9 +5,19 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
+export const ADD_USER = 'ADD_USER';
 
-function loginSuccess() {
+export const LOGOUT_STATE = 'LOGOUT_STATE';
+
+const token = localStorage.getItem("token");
+const headers = {
+    "Authorization": `Bearer ${token}`
+}
+
+
+function loginSuccess(user) {
     return {
+        user,
         type: LOGIN_SUCCESS
     }
 }
@@ -16,6 +26,17 @@ function loginFailure(message) {
     return {
         type: LOGIN_FAILURE,
         message: message
+    }
+}
+
+export function getUser() {
+    return (dispatch) => {
+        return axios.get(process.env.REACT_APP_API_SERVER + 'users/user', headers)
+            .then((resp) => {
+                if (resp.data) {
+                    dispatch(addUser(resp.data))
+                }
+            })
     }
 }
 
@@ -33,24 +54,38 @@ export function loginUser(username, password) {
                 dispatch(loginFailure(response.data.message || ''));
             } else {
                 // If login was successful, set the token in local storage
-                localStorage.setItem('token', response.data.token)
-                    // Dispatch the success action
-                dispatch(loginSuccess());
+                localStorage.setItem("token", response.data.token)
+                localStorage.setItem("username", response.data.user.username);
+                // Dispatch the success action
+                dispatch(loginSuccess(response.data.user));
             }
         }).catch(err => console.log("Error: ", err))
     }
 }
 
-function loginFailure(message) {
+export function logout() {
+    return (dispatch) => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        dispatch(logoutState());
+    }
+
+}
+
+export function loginFailure(message) {
     return {
         type: LOGIN_FAILURE,
         message: message
     }
 }
 
-export function register(name, username, password) {
-    console.log(password);
+export function logoutState() {
+    return {
+        type: LOGOUT_STATE
+    }
+}
 
+export function register(name, username, password) {
     return (dispatch) => {
         return axios.post(process.env.REACT_APP_API_SERVER + 'auth/register', {
             name: name,
@@ -67,8 +102,15 @@ export function register(name, username, password) {
                 // If login was successful, set the token in local storage
                 localStorage.setItem('token', response.data.token)
                     // Dispatch the success action
-                dispatch(loginSuccess());
+                dispatch(loginSuccess(response.data.user.id));
             }
         }).catch(err => console.log("Error: ", err))
+    }
+}
+
+export function addUser(user) {
+    return {
+        user,
+        type: ADD_USER
     }
 }

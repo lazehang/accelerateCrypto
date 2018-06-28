@@ -1,9 +1,9 @@
 import React from 'react';
 
 const NotFound = () => (
-  <div>
+  <section>
     <h2>Not Found</h2>
-  </div>
+  </section>
 );
 
 export default NotFound;

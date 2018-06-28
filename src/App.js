@@ -10,18 +10,26 @@ import{
 import { store as store } from './redux/store';
 import PropTypes from 'prop-types';
 import CoinList from './components/CoinList';
-import StorePicker from './components/StorePicker';
+import Home from './components/Home';
 import Login from './components/Login';
 import Coin from './components/Coin';
 import { RouteProps } from "react-router";
 import SignUp from './components/Signup';
-// import base from './base';
+import BuyCoin from './components/transactions/BuyCoin';
+import SellCoin from './components/transactions/SellCoin';
+
+import Footer from './components/Footer';
+import Navigation from './components/Nav';
+import Profile from './components/user/Profile';
+import NotFound from './components/NotFound';
+import './css/custom.css';
 
 const PurePrivateRoute = ({ component, isAuthenticated, ...rest }) => {
   const Component = component;
   if (Component != null) {
     return (
-      <Route render={(props) => (
+      
+      <Route {...rest} render={(props) => (
         isAuthenticated ? (
           <Component {...props} />
         ) : (
@@ -42,98 +50,39 @@ const PrivateRoute = connect((state) => ({
 }))(PurePrivateRoute);
 
 class App extends React.Component {
+  constructor(props) {
+    super(props)
+  }
  
-  // componentDidMount() {
-  //   const { params } = this.props.match;
-
-  //   // First reinstate localStorage
-  //   // const localStorageRef = localStorage.getItem(params.storeId);
-  //   // if (localStorageRef) {
-  //   //   this.setState({ order: JSON.parse(localStorageRef) })
-  //   // }
-
-  //   // this.ref = base.syncState(`${params.storeId}/coins`, {
-  //   //   context: this,
-  //   //   state: 'coins'
-  //   // });
-  // }
-
-  // componentDidUpdate() {
-  //   localStorage.setItem(
-  //     this.props.match.params.storeId,
-  //     JSON.stringify(this.state.order)
-  //   );
-  // }
-
-  // componentWillUnmount() {
-  //   base.removeBinding(this.ref);
-  // }
-
-  // addCoin = (coin) => {
-  //   // 1. Take a copy of existing state
-  //   const coins = { ...this.state.coins }
-  //   // 2. Add new coin to coins variable
-  //   coins[`coin${Date.now()}`] = coin
-  //   // 3. Set new coin object to state
-  //   this.setState({ coins });
-  // };
-
-  // updateCoin = (key, updatedCoin) => {
-  //   // 1. Take copy of current state
-  //   const coins = { ...this.state.coins }
-  //   // 2. Update that state
-  //   coins[key] = updatedCoin;
-  //   // 3. Set that to state
-  //   this.setState({ coins });
-  // }
-
-  // deleteCoin = (key) => {
-  //   // 1. Take copy of current state
-  //   const coins = { ...this.state.coins }
-  //   // 2. Update that state
-  //   coins[key] = null;
-  //   // 3. Set that to state
-  //   this.setState({ coins })
-  // }
-
-  // loadSampleCoins = () => {
-  //   this.setState({ coins: sampleCoins })
-  // }
-
-  // addToOrder = (key) => {
-  //   // 1. Take a copy of existing state
-  //   const order = { ...this.state.order }
-  //   // 2. Either add to the order or update the order
-  //   order[key] = order[key] + 1 || 1;
-  //   // 3. Set new order state
-  //   this.setState({ order })
-  // }
-
-  // removeFromOrder = (key) => {
-  //   // 1. Take a copy of existing state
-  //   const order = { ...this.state.order }
-  //   // 2. Remove coin from order
-  //   delete order[key]
-  //   // 3. Set new order state
-  //   this.setState({ order })
-  // }
+  isAuthenticated = () => {
+    return localStorage.getItem('token');
+  }
 
   render() {
     return (
       <Provider store={store}>
-      <Router>
-        <div>
+        <Router>
+          <div>
+            <Navigation />
+
             <Switch>
-              <Route exact={true} path="/" component={StorePicker} />
-              <PrivateRoute  path="/store" component={CoinList} />
+              <Route exact={true} path="/" component={Home} />
+              <PrivateRoute exact={true} path="/coins" component={CoinList}/>
               <Route path="/login" component={Login} />
               <Route path="/register" component={SignUp} />
-              <Route path="/buy/:id" component={Coin} />
+              <Route path="/coins/:id" component={Coin} />
+              <Route exact={true} path="/profile" component={Profile} />
+              
+              <PrivateRoute path="/buy" component={BuyCoin} />
+              <PrivateRoute path="/sell/:id" component={SellCoin} />
+              
+              <Route component={NotFound} />
             </Switch>
-        </div>
+
+            <Footer />
+          </div>
         </Router>
-      </Provider>
-      
+      </Provider>    
     );
   }
 }

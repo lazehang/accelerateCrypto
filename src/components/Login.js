@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { loginUser } from '../redux/auth/actions';
 import { connect } from 'react-redux';
 
+import {Link} from 'react-router-dom';
 
 class PureLogin extends Component {
   constructor(props) {
@@ -13,6 +14,10 @@ class PureLogin extends Component {
     };
   }
 
+  onComponentDidMount = () => {
+    
+  }
+
  onChangeField = (field, e) => {
     const state = {};
     state[field] = e.currentTarget.value;
@@ -22,33 +27,50 @@ class PureLogin extends Component {
 
   login = () => {
     this.props.login(this.state.username, this.state.password);
-    this.props.history.push(this.props.history.location.state.from.pathname);
   };
+
+  componentDidUpdate = () => {
+    if(this.props.isAuthenticated) {
+      this.props.history.push('/coins');
+    }
+  }
 
   render() {
     return (
-      <div className="Login">
-      Username:{" "}
-        <input
-          onChange={this.onChangeField.bind(this, "username")}
-          type="text"
-          value={this.state.username}
-        />
-        <br />
-        Password:{" "}
-        <input
-          onChange={this.onChangeField.bind(this, "password")}
-          type="password"
-          value={this.state.password}
-        />
-        <br />
-        <button onClick={this.login}>Log in</button>
-      </div>
+      <section id="login">  
+        <div className="container">
+          <div className="row">
+            <div className="col-8 mx-auto">
+              <h2 className="text-center">Accelerate Crypto</h2>
+              <hr />
+              <div>
+                <div className="form-group">
+                  <label>Username</label>
+                  <input type="text" id="inputEmail" name="username" className="form-control" value={this.state.username} onChange={this.onChangeField.bind(this, 'username')} placeholder="username" required />
+                </div>
+                <div className="form-group">
+                  <label>Password</label>
+                  <input type="password" id="inputPassword" className="form-control" value={this.state.password} onChange={this.onChangeField.bind(this, 'password')} placeholder="Password" required />          
+                </div>
+                <div className="form-check">
+                  <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                  <label className="form-check-label" >Check me out</label>
+                </div>
+                <br/>
+                <button className="btn btn-primary" onClick={this.login} >Sign in</button><small id="emailHelp" className="form-text text-muted">or register <Link to="/register">here</Link></small>              
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>     
     );
   }
 }
 
-const Login = connect(null, (dispatch) => ({
+const Login = connect((state) => ({
+  isAuthenticated: state.auth.isAuthenticated
+}), (dispatch) => ({
   login: (username, password) => dispatch(loginUser(username, password))
 }))(PureLogin)
 
