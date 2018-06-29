@@ -2,11 +2,10 @@
   "name": "Coin-of-the-Day",
   "version": "0.0.3",
   "private": true,
-  "devDependencies": {
-    "concurrently": "3.5.1",
-    "react-scripts": "^1.1.4"
-  },
+  "devDependencies": {},
   "dependencies": {
+    "concurrently": "3.5.1",
+    "react-scripts": "^1.1.4",
     "autoprefixer-stylus": "0.14.0",
     "axios": "^0.18.0",
     "firebase": "^4.10.1",
