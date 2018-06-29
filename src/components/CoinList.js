@@ -21,12 +21,12 @@ class PureCoinList extends React.Component {
         }
     }
 
-    
+
     componentWillMount = () => {
-        this.props.loadCoins();   
+        this.props.loadCoins();
         this.setState({
             coins: this.props.coins
-        })  
+        })
     }
 
     ImageExist = (url) => {
@@ -63,7 +63,7 @@ class PureCoinList extends React.Component {
                 hasNoSearchResult: false
             })
         }
-        
+
     }
 
     removeSearch = () => {
@@ -77,9 +77,9 @@ class PureCoinList extends React.Component {
     render() {
         let coins = this.props.coins;
         if (this.state.coins.length > 0) {
-            
+
             coins = this.state.coins;
-            
+
         }
         console.log(this.state.hasNoSearchResult)
 
@@ -106,21 +106,21 @@ class PureCoinList extends React.Component {
 
                                     {
                                         Object.keys(coins).map((k,v) => (
-                                                    
+
                                             <Card key={coins[k].id}>
                                             {
-                                                this.ImageExist(`./images/${coins[k].symbol}.png`) ? 
-                                                <CardImg top className="card-img-over" src={`./images/${coins[k].symbol}.png`} alt="Card image cap" /> : ''
+                                                this.ImageExist(`./images/${coins[k].symbol}.png`) ?
+                                                <CardImg top className="card-img-over" src={`./images/${coins[k].symbol}.png`} alt="Card image cap" /> : <CardImg top className="card-img-over" src={`./images/GBYTE.png`} alt="Card image cap" />
                                             }
-                                                
+
                                                 <CardBody>
                                                 <CardTitle>{coins[k].name}</CardTitle>
                                                 <CardSubtitle>{coins[k].symbol}</CardSubtitle>
                                                 <CardText>HKD {coins[k].quotes.HKD.price} <ChangeBadge change={coins[k].quotes.HKD.percent_change_24h} /></CardText>
                                                 <Link to={`/coins/${coins[k].id}`}>Buy</Link>
                                                 </CardBody>
-                                            </Card>                             
-                                                
+                                            </Card>
+
                                         ))
                                     }
                                 </CardColumns>
@@ -131,8 +131,8 @@ class PureCoinList extends React.Component {
                     </div>
                 </div>
                 </section>
-        )   
-        
+        )
+
     }
 }
 
