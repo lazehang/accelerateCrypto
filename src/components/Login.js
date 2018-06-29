@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { loginUser } from '../redux/auth/actions';
 import { connect } from 'react-redux';
-import {Alert} from 'reactstrap';
-import {Link} from 'react-router-dom';
+import { Alert } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 class PureLogin extends Component {
   constructor(props) {
@@ -17,10 +17,10 @@ class PureLogin extends Component {
   }
 
   onComponentDidMount = () => {
-    
+
   }
 
- onChangeField = (field, e) => {
+  onChangeField = (field, e) => {
     const state = {};
     state[field] = e.currentTarget.value;
 
@@ -35,8 +35,8 @@ class PureLogin extends Component {
 
   login = () => {
     this.props.login(this.state.username, this.state.password);
-      
-    if(!this.props.isAuthenticated) {
+
+    if (!this.props.isAuthenticated) {
       this.setState({
         visible: true,
         error: true
@@ -45,17 +45,17 @@ class PureLogin extends Component {
   };
 
   componentDidUpdate = () => {
-    if(this.props.isAuthenticated) {
+    if (this.props.isAuthenticated) {
       this.setState({
         error: false
       })
       this.props.history.push('/coins');
-    } 
+    }
   }
 
   render() {
     return (
-      <section id="login">  
+      <section id="login">
         <div className="container">
           <div className="row">
             <div className="col-8 mx-auto">
@@ -71,20 +71,20 @@ class PureLogin extends Component {
                 </div>
                 <div className="form-group">
                   <label>Password</label>
-                  <input type="password" id="inputPassword" className="form-control" value={this.state.password} onChange={this.onChangeField.bind(this, 'password')} placeholder="Password" required />          
+                  <input type="password" id="inputPassword" className="form-control" value={this.state.password} onChange={this.onChangeField.bind(this, 'password')} placeholder="Password" required />
                 </div>
-                <div className="form-check">
+                {/* <div className="form-check">
                   <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                   <label className="form-check-label" >Check me out</label>
                 </div>
-                <br/>
-                <button className="btn btn-primary" onClick={this.login} >Sign in</button><small id="emailHelp" className="form-text text-muted">or register <Link to="/register">here</Link></small>              
+                <br /> */}
+                <button className="btn btn-primary" onClick={this.login} >Sign in</button><small id="emailHelp" className="form-text text-muted">or register <Link to="/register">here</Link></small>
               </div>
-              
+
             </div>
           </div>
         </div>
-      </section>     
+      </section>
     );
   }
 }
