@@ -2,8 +2,13 @@
     box-shadow: 0px 1px grey !important;
 }
 
+.card {
+  min-height: 0;
+}
+
+
 .card-img-over {
-    width: 250px;
+    width: 25%;
     height: auto;
     margin-top: 5px;
 }
