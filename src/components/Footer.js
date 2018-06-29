@@ -12,6 +12,10 @@ class PureFooter extends React.Component {
     componentDidMount = () => {
         this.props.loadBalance();
     }
+
+    componentWillUpdate = () => {
+        this.props.loadBalance();        
+    }
     
     render() {
         return (

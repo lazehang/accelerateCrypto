@@ -11,7 +11,8 @@ class PureBuyCoin extends React.Component {
 
         this.state = {
             time: 0,
-            transactionTimeOver: false
+            transactionTimeOver: false,
+            success: false
         }
     }
     timerID;
@@ -52,7 +53,7 @@ class PureBuyCoin extends React.Component {
             })
 
             setTimeout(() => {
-                this.props.history.push('/coins');   
+                this.cancel();   
             }, 1000)
         }
 
@@ -60,13 +61,21 @@ class PureBuyCoin extends React.Component {
 
     onDismiss() {
         this.setState({
-            transactionTimeOver: false
+            transactionTimeOver: false,
+            success: false
         })
     }
 
     buy = () => {
         this.props.buy(this.props.coin.amount, this.props.coin.coin_id, this.props.coin.coinQuantity)
-        this.props.history.push(`/coins`);        
+        this.setState({
+            success: true
+        })
+        clearInterval(this.timerID);
+        
+        setTimeout(() => {
+            this.props.history.push(`/profile`);        
+        },3000)
     }
 
     cancel = () => {
@@ -82,6 +91,11 @@ class PureBuyCoin extends React.Component {
                         <div className="col-lg-12 mx-auto text-center">
                         <Alert color="danger" isOpen={this.state.transactionTimeOver} fade="false" toggle={this.onDismiss}>
                             Transaction time over
+                        </Alert>
+                        <Alert color="success" isOpen={this.state.success} fade="false" toggle={this.onDismiss}>
+                            Transaction Successful !!
+                            <hr />
+                            <p>you were credited by HKD {coin.amount}</p>
                         </Alert>
                         <Progress value={this.state.time * 20} />
                         <hr />

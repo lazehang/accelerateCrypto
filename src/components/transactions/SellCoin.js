@@ -2,7 +2,7 @@ import * as React from 'react';
 import { sell } from '../../redux/transaction/actions';
 import { connect } from 'react-redux';
 import { getUserCoins } from '../../redux/account/actions';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 
 
@@ -16,7 +16,9 @@ class PureSellCoin extends React.Component {
             amount: 0,
             rate:0,
             modal: false,
-           selling: 0
+           selling: 0,
+           quantityExceeded: false,
+           success: false
         }
         this.toggle = this.toggle.bind(this);
     }
@@ -28,7 +30,7 @@ class PureSellCoin extends React.Component {
         });
     }
 
-    componentWillMount = () => {
+    componentDidMount = () => {
         this.props.loadCoins();
         setTimeout(() => {
           this.setState({
@@ -68,16 +70,38 @@ class PureSellCoin extends React.Component {
         }
         
         const quantity = e.target.value/price;
+
+        if (quantity < this.props.coin.quantity) {
+            this.setState({
+            amount: e.target.value,
+            selling: quantity,
+            rate: price,
+            quantityExceeded: false
+            });
+        } else {
+            this.setState({
+                quantityExceeded: true
+            })
+        }
+    }
+
+    onDismiss() {
         this.setState({
-           amount: e.target.value,
-           selling: quantity,
-           rate: price
-        });
+            quantityExceeded: false
+        })
     }
 
     confirmSell = () => {
         this.props.sell(this.state.amount, this.props.match.params.id, this.state.selling);
-        this.props.history.push(`/profile`);        
+        this.setState({
+            success: true
+        })
+
+        this.toggle();
+
+        setTimeout(() => {
+            this.props.history.push(`/profile`);           
+        }, 3000)
         
     }
 
@@ -90,7 +114,7 @@ class PureSellCoin extends React.Component {
             
             return (
                 <section>
-                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                <Modal size="sm" isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Transaction Details</ModalHeader>
                     <ModalBody>
                        Total: {this.state.amount}
@@ -109,7 +133,10 @@ class PureSellCoin extends React.Component {
             <div className="col-lg-12 mx-auto text-center">
                 <img className="img img-responsive" src={`../images/${coin.symbol}.png`} />
                 <hr />
+                Total Coins: {coin.quantity}
                 <form>
+                    <Alert toggle={this.onDismiss} isOpen={this.state.success} fade="false" color="success">Transaction Successful</Alert>
+                    
                     <div className="form-group">
                     <label>Coin Name</label>
                         <input className="form-control" type="text" value={coin.name} disabled />
@@ -121,13 +148,14 @@ class PureSellCoin extends React.Component {
                     </div>
                     <div className="form-group">
                         <label>Amount (HKD) </label>
-                        <input className="form-control" onChange={this.onChangeAmount} type="text" value={this.state.amount} />
+                        <input className="form-control" onChange={this.onChangeAmount} type="number" value={this.state.amount} />
                         <small>Note: This may change if you take more time to get ready for the transaction.</small>
+                        <Alert toggle={this.onDismiss} isOpen={this.state.quantityExceeded} fade="false" color="danger">sorry amount exceeded</Alert>
                     </div>
                     <div className="form-group">
                         <label>Selling Quantity</label>
                         {this.state.selling}
-                        <input type="range" onChange={this.handleRangeChange} id="cowbell" min="0" max={coin.quantity} value={this.state.selling} step="1" />
+                        <input type="range" onChange={this.handleRangeChange} id="cowbell" min="0" max={coin.quantity} value={this.state.selling} step="0.01" />
                         <small>number of coins you want to sell</small>
                         </div>
                     <input className="btn btn-primary" onClick={this.toggle} defaultValue="Sell" />

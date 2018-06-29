@@ -14,14 +14,25 @@ class PureCoin extends React.Component {
       this.state = {
           amount: "",
           modal: false,
-          time: 0
+          time: 0,
+          isFetching: true
       }
 
     this.toggle = this.toggle.bind(this);
   }
   timerID;
 
-  componentDidMount(){
+  componentWillMount = () => {
+    this.props.loadCoins();
+      
+  }
+
+  componentDidMount = () => {
+    setTimeout(() => {
+          this.setState({
+            isFetching: false
+        })
+    }, 2000);
           
   }
 
@@ -64,8 +75,10 @@ class PureCoin extends React.Component {
   }
 
   render() {
-    const coin = this.props.coin;
-    return (
+    const coin = this.props.coin || [];
+
+    if (!this.state.isFetching) {
+        return (
         <section id="coin">
         <Modal isOpen={this.state.modal} toggle={this.toggle} size="lg" className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Chart</ModalHeader>
@@ -100,14 +113,16 @@ class PureCoin extends React.Component {
                         <input type="number" className="form-control" value={this.state.amount} onChange={this.onChangeField.bind(this, "amount")}/>
                     </div>
                     
-                    <input className="btn btn-primary" onClick={this.getReady} value="Confirm Buy" />
+                    <input className="btn btn-primary" onClick={this.getReady} defaultValue="Confirm Buy" />
                 </form>
             </div>
             </div>
         </div>
         </section>
         )
-   
+    }
+    
+   return 'loading ...'
     
   }
 }
