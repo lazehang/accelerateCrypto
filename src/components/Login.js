@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { loginUser } from '../redux/auth/actions';
 import { connect } from 'react-redux';
-
+import {Alert} from 'reactstrap';
 import {Link} from 'react-router-dom';
 
 class PureLogin extends Component {
@@ -10,7 +10,9 @@ class PureLogin extends Component {
 
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      visible: false,
+      error: false
     };
   }
 
@@ -25,14 +27,30 @@ class PureLogin extends Component {
     this.setState(state);
   };
 
+  onDismiss = () => {
+    this.setState({
+      error: false
+    })
+  }
+
   login = () => {
     this.props.login(this.state.username, this.state.password);
+      
+    if(!this.props.isAuthenticated) {
+      this.setState({
+        visible: true,
+        error: true
+      })
+    }
   };
 
   componentDidUpdate = () => {
     if(this.props.isAuthenticated) {
+      this.setState({
+        error: false
+      })
       this.props.history.push('/coins');
-    }
+    } 
   }
 
   render() {
@@ -44,6 +62,9 @@ class PureLogin extends Component {
               <h2 className="text-center">Accelerate Crypto</h2>
               <hr />
               <div>
+                <Alert color="danger" isOpen={this.state.error} toggle={this.onDismiss} fade="false">
+                  Sorry !! Wrong credentials for login
+                </Alert>
                 <div className="form-group">
                   <label>Username</label>
                   <input type="text" id="inputEmail" name="username" className="form-control" value={this.state.username} onChange={this.onChangeField.bind(this, 'username')} placeholder="username" required />

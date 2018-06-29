@@ -1,7 +1,9 @@
 import { ADD_USER, LoginActions, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_STATE } from "./actions";
 
 const initialState = {
-    isAuthenticated: (localStorage.getItem('token') != null)
+    isAuthenticated: (localStorage.getItem('token') != null),
+    error: "",
+    success: ""
 };
 
 export function authReducer(state = initialState, action) {
@@ -10,12 +12,16 @@ export function authReducer(state = initialState, action) {
             {
                 return Object.assign({}, state, {
                     isAuthenticated: true,
-                    user: action.user
+                    user: action.user,
+                    success: "Logged in Successfully"
                 });
             }
         case LOGIN_FAILURE:
             {
-                return state;
+                return Object.assign({}, state, {
+                    isAuthenticated: false,
+                    error: action.message
+                });
             }
         case ADD_USER:
             {

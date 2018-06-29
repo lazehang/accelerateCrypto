@@ -21,27 +21,10 @@ class PureCoin extends React.Component {
   }
   timerID;
 
-  componentDidMount() {
-      
-    this.timerID =  setInterval(() => {
-        this.tick()
-    }, 1000) 
-
+  componentDidMount(){
           
   }
 
-  componentWillUnmount() {
-      clearInterval(this.timerID)
-  }
-    tick() {
-        const newTime = this.state.time + 1;
-        if (this.state.time < 10) {
-            this.setState({
-                    time: newTime
-                })
-        }
-
-    }
     onChangeField = (field, e) => {
         const state = {};
         state[field] = e.currentTarget.value;
@@ -60,8 +43,6 @@ class PureCoin extends React.Component {
     }
 
     getReady = () => {
-        console.log(this.props.amount)
-        if (this.state.time < 10) {
             if (this.state.amount < this.props.amount) {
                 this.props.getReady(this.state.amount, this.props.coin.id);
                 setTimeout(() => {
@@ -72,10 +53,6 @@ class PureCoin extends React.Component {
             } else {
                 alert("Insufficient Funds")
             }
-       
-        } else {
-            this.props.history.push('/coins');
-        }
         
     }
 

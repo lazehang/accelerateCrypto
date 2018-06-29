@@ -29,7 +29,7 @@ class PureCoinList extends React.Component {
         })  
     }
 
-    ImageExist(url) {
+    ImageExist = (url) => {
         var img = new Image();
         img.src = url;
         return img.height != 0;

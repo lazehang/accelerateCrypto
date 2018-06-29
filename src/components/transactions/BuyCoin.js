@@ -2,15 +2,66 @@ import * as React from 'react';
 import { buy } from '../../redux/transaction/actions';
 import { connect } from 'react-redux';
 import { remoteFetchCoins } from '../../redux/coin/actions';
+import {Progress, Alert} from 'reactstrap';
 
 
 class PureBuyCoin extends React.Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            time: 0,
+            transactionTimeOver: false
+        }
     }
+    timerID;
 
     componentWillMount() {
         this.props.loadCoins()
+
+        if (!this.props.coin) {
+            this.props.history.push('/coins');
+        }
+    }
+
+    componentDidMount =() => {
+        if (this.props.coin) {
+            this.timerID =  setInterval(() => {
+                this.tick()
+            }, 1000) 
+        }else{
+            window.location.href = '/coins';
+        }
+    }
+
+    
+    componentWillUnmount() {
+        clearInterval(this.timerID)
+    }
+
+
+    tick() {
+        const newTime = this.state.time + 1;
+        if (this.state.time < 5) {
+            this.setState({
+                time: newTime
+            })
+        } else {
+            this.setState({
+                transactionTimeOver: true
+            })
+
+            setTimeout(() => {
+                this.props.history.push('/coins');   
+            }, 1000)
+        }
+
+    }
+
+    onDismiss() {
+        this.setState({
+            transactionTimeOver: false
+        })
     }
 
     buy = () => {
@@ -24,17 +75,27 @@ class PureBuyCoin extends React.Component {
 
     render() {
         let coin = this.props.coin;
-        console.log(coin.amount);
         return (
             <section>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 mx-auto text-center">
-                            <p>Total number of <strong>BTC</strong> you want to buy </p> 
-                            <br />
-                            <p>For <strong>{coin.amount}</strong></p>
-                            <br />
-                            <p>Total coins: <strong>{coin.coinQuantity}</strong></p>
+                        <Alert color="danger" isOpen={this.state.transactionTimeOver} fade="false" toggle={this.onDismiss}>
+                            Transaction time over
+                        </Alert>
+                        <Progress value={this.state.time * 20} />
+                        <hr />
+                           { coin ?
+                            (
+                                <div>
+                                    <p>Total number of <strong>Coins</strong> you want to buy </p> 
+                                    <br />
+                                    <p>For <strong>{coin.amount}</strong></p>
+                                    <br />
+                                    <p>Total coins: <strong>{coin.coinQuantity}</strong></p>
+                                </div>
+                            ) : ''
+                           }
                             <hr />
                             
                             <button className="btn btn-success" onClick={this.buy} >Confirm Buy</button> |

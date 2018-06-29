@@ -17,7 +17,7 @@ class PureUserCoinList extends React.Component {
         let coins = this.props.coins;
         
         return (
-                    <table className="table">
+                    <table className="table bg-light">
                         <thead>
                             <tr>
                                 <th>Coin ID</th>

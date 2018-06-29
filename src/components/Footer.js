@@ -9,7 +9,7 @@ const footerStyle = {
 
 class PureFooter extends React.Component {
 
-    componentDidMount() {
+    componentDidMount = () => {
         this.props.loadBalance();
     }
     
@@ -35,4 +35,4 @@ const Footer = connect((state) => ({
   loadBalance: () => dispatch(getUserAccount())
 }))(PureFooter);
 
-export default Footer
+export default Footer;
