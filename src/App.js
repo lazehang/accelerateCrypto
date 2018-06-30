@@ -22,6 +22,7 @@ import Footer from './components/Footer';
 import Navigation from './components/Nav';
 import Profile from './components/user/Profile';
 import NotFound from './components/NotFound';
+import Transaction from './components/user/Transaction'
 import './css/custom.css';
 
 const PurePrivateRoute = ({ component, isAuthenticated, ...rest }) => {
@@ -75,6 +76,7 @@ class App extends React.Component {
               
               <PrivateRoute path="/buy" component={BuyCoin} />
               <PrivateRoute path="/sell/:id" component={SellCoin} />
+              <PrivateRoute path="/transaction" component={Transaction} />
               
               <Route component={NotFound} />
             </Switch>

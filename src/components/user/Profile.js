@@ -21,9 +21,15 @@ class PureProfile extends React.Component {
                 <div className="container">
                     <div className="row">
                     <div className="col-lg-12 mx-auto text-center">
-                        
+                                   
                         { this.props.isFetching ? <ReactLoading className="mx-auto" type="bars" color="teal" /> : (
-                            <div> <UserDetail /> <UserCoinList /> </div> 
+                            <div> 
+                                <UserDetail />
+                                
+                                <Link to="/transaction"> see trasaction history</Link>
+                                
+                                <UserCoinList /> 
+                            </div> 
                         )}
                     </div>
                     </div>

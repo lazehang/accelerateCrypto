@@ -89,15 +89,15 @@ class PureBuyCoin extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 mx-auto text-center">
-                        <Alert color="danger" isOpen={this.state.transactionTimeOver} fade="false" toggle={this.onDismiss}>
+                        <Alert color="danger" isOpen={this.state.transactionTimeOver} fade="false" onClick={this.onDismiss}>
                             Transaction time over
                         </Alert>
-                        <Alert color="success" isOpen={this.state.success} fade="false" toggle={this.onDismiss}>
+                        <Alert color="success" isOpen={this.state.success} fade="false" onClick={this.onDismiss}>
                             Transaction Successful !!
                             <hr />
                             <p>you were credited by HKD {coin.amount}</p>
                         </Alert>
-                        <Progress value={this.state.time * 20} />
+                        <Progress color="info" value={this.state.time * 20} />
                         <hr />
                            { coin ?
                             (

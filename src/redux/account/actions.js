@@ -5,10 +5,27 @@ export const ADD_ACCOUNT = 'ADD_ACCOUNT';
 export const SOCKET_UPDATE_BALANCE = 'SOCKET_UPDATE_BALANCE';
 export const ADD_USER_COINS = 'ADD_USER_COINS';
 export const ADD_COIN_PRICE = 'ADD_COIN_PRICE';
+export const ADD_TRANSACTIONS = 'ADD_TRANSACTIONS';
+export const CLEAR_TRANSACTIONS = 'CLEAR_TRANSACTIONS';
 
 const token = localStorage.getItem("token");
 const headers = {
     "Authorization": `Bearer ${token}`
+}
+
+export function getUserTransactions() {
+    return (dispatch) => {
+        return axios.get(process.env.REACT_APP_API_SERVER + 'users/log', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then((resp) => {
+            if (resp.data) {
+                dispatch(clearTransactions());
+                dispatch(addTransactions(resp.data))
+            }
+        })
+    }
 }
 
 export function getUserAccount() {
@@ -80,5 +97,18 @@ export function addPrice(price) {
     return {
         type: ADD_COIN_PRICE,
         price
+    }
+}
+
+export function addTransactions(transactions) {
+    return {
+        type: ADD_TRANSACTIONS,
+        transactions
+    }
+}
+
+export function clearTransactions() {
+    return {
+        type: CLEAR_TRANSACTIONS
     }
 }

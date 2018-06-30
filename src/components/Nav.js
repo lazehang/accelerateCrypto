@@ -44,7 +44,7 @@ class PureNav extends React.Component {
       render() {
           const isAuthenticated = (localStorage.getItem('token') != null);
           return (
-          <Navbar color="inverse" expand="md">
+          <Navbar fixed="top" color="inverse" expand="md">
             <NavbarBrand href="/">AcceleratedCrypto</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
@@ -62,6 +62,7 @@ class PureNav extends React.Component {
                     </DropdownToggle>
                     <DropdownMenu right>
                         <Link to="/profile"><DropdownItem >Profile</DropdownItem></Link>
+                        <Link to="/transaction"><DropdownItem >Transactions</DropdownItem></Link>                        
                         <Link to="/login" onClick={this.handleClick} className="nav-link js-scroll-trigger" ><DropdownItem>Logout</DropdownItem></Link>                            
                     </DropdownMenu>
                 </UncontrolledDropdown> 
