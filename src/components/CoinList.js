@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { remoteFetchCoins } from '../redux/coin/actions';
-import Header from './Header';
 import { Link } from 'react-router-dom';
-import { CryptoCard } from 'react-ui-cards';
-import Loader from './Loader';
 import ChangeBadge from './ChangeBadge';
 import { Form, FormGroup, Label, Input, Card, Badge, Button, CardImg, CardTitle, CardText, CardColumns,
  CardSubtitle, CardBody } from 'reactstrap';
+import ReactLoading from 'react-loading';
+
 // also available as `default`
 
 class PureCoinList extends React.Component {
@@ -95,11 +94,13 @@ class PureCoinList extends React.Component {
                             <Label className="mr-sm-2">Search</Label>
                             <Input type="text" id="examplePassword" onChange={this.handleSearchChange} value={this.state.query} placeholder="BTC" />
                             </FormGroup>
-                            <Button onClick={this.search}>Search</Button>
+                            <Input className="btn btn-primary" onClick={this.search} value="Search" />
                         </Form>
+    
                         { this.state.query.length > 0 ? (<Badge onClick={this.removeSearch}>{this.state.query} x</Badge>) : '' }
 
-                        {
+                        <div className="py-4"> 
+                        { this.props.isFetching ? <ReactLoading className="mx-auto" type="bars" color="teal" /> :
                             this.state.hasNoSearchResult ? 'No Results' :
                             (
                                 <CardColumns>
@@ -107,10 +108,10 @@ class PureCoinList extends React.Component {
                                     {
                                         Object.keys(coins).map((k,v) => (
 
-                                            <Card key={coins[k].id}>
+                                            <Card className="mx-auto" key={coins[k].id}>
                                             {
                                                 this.ImageExist(`./images/${coins[k].symbol}.png`) ?
-                                                <CardImg top className="card-img-over" src={`./images/${coins[k].symbol}.png`} alt="Card image cap" /> : <CardImg top className="card-img-over" src={`./images/GBYTE.png`} alt="Card image cap" />
+                                                <CardImg top className="card-img-over mx-auto" src={`./images/${coins[k].symbol}.png`} alt="Card image cap" /> : <CardImg top className="card-img-over mx-auto" src={`./images/GBYTE.png`} alt="Card image cap" />
                                             }
 
                                                 <CardBody>
@@ -126,6 +127,7 @@ class PureCoinList extends React.Component {
                                 </CardColumns>
                             )
                         }
+                        </div>
 
                     </div>
                     </div>
@@ -137,7 +139,8 @@ class PureCoinList extends React.Component {
 }
 
 const CoinList = connect((rootState) => ({
-  coins: rootState.coin.coins
+  coins: rootState.coin.coins,
+  isFetching: rootState.coin.isFetching
 }), (dispatch) => ({
     loadCoins: () => { dispatch(remoteFetchCoins())}
 }))(PureCoinList);

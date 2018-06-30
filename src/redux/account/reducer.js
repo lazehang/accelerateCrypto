@@ -2,7 +2,8 @@ import { ADD_ACCOUNT, ADD_COIN_PRICE, SOCKET_UPDATE_BALANCE, ADD_USER_COINS } fr
 
 const initialState = {
     account: [],
-    isFetching: true
+    isFetching: true,
+    coins: []
 };
 
 export function reducer(state = initialState, action) {

@@ -3,9 +3,9 @@
 }
 
 .card {
-  min-height: 0;
+    min-height: 0;
+    background: #fff;
 }
-
 
 .card-img-over {
     width: 25%;

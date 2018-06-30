@@ -1,6 +1,6 @@
 import { ADD_USER_INFO } from "./actions";
 
-export function reducer(oldState = {}, action) {
+export function reducer(oldState = { user: [] }, action) {
     switch (action.type) {
         case ADD_USER_INFO:
             {

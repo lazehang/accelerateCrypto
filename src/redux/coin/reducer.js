@@ -2,19 +2,27 @@ import { ADD_COINS, CLEAR_COINS, ADD_TO_TRANSACT, SOCKET_UPDATE_COINS } from "./
 
 
 const initialState = {
-    coins: []
+    coins: [],
+    isFetching: true
 };
 export function reducer(oldState = initialState, action) {
     switch (action.type) {
         case ADD_COINS:
             {
                 const coins = action.coins
-                return {...oldState, coins };
+                return Object.assign({}, oldState, {
+                    coins,
+                    isFetching: false
+                });
             }
 
         case CLEAR_COINS:
             {
-                return {...oldState, coins: [] };
+                return Object.assign({}, oldState, {
+                    isFetching: true,
+                    coins: []
+                });
+
             }
         case SOCKET_UPDATE_COINS:
             {

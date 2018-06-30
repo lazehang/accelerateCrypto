@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getUserCoins } from '../../redux/account/actions';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
+import ReactLoading from 'react-loading';
 
 
 class PureSellCoin extends React.Component {
@@ -30,14 +31,32 @@ class PureSellCoin extends React.Component {
         });
     }
 
+    componentWillMount = () => {
+        if(this.props.isFetching || this.props.isFetching === null){
+            this.props.loadCoins();
+        }
+    }
+
     componentDidMount = () => {
-        this.props.loadCoins();
-        setTimeout(() => {
-          this.setState({
-            isFetching: false
+      if(this.props.isFetching || this.props.isFetching === null){
+            setTimeout(() => {
+                this.setState({
+                    isFetching: this.props.isFetching
+                })
+            }, 2000);
+
+            if (this.state.isFetching) {
+                setTimeout(() => {
+                    this.setState({
+                        isFetching: this.props.isFetching
+                    })
+                }, 4000);
+            }
+        } else {
+            this.setState({
+                isFetching: this.props.isFetching
             })
-        }, 2000)
-        
+        }
     }
 
     onChangeField = (field, e) => {
@@ -108,7 +127,17 @@ class PureSellCoin extends React.Component {
     render() {
         
         if (this.state.isFetching) {
-            return 'loading...';
+            return (
+                <section>
+                    <div className="container">
+                        <div className="row">
+                            <div className='mx-auto'>
+                                <ReactLoading type="bars" color="teal" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
         } else {
         let coin = this.props.coin;
             
@@ -164,7 +193,8 @@ class PureSellCoin extends React.Component {
             </div>
         </div>
         </section> 
-            )    }
+            )    
+        }
         
     }
 }

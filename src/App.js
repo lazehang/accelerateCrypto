@@ -70,8 +70,8 @@ class App extends React.Component {
               <PrivateRoute exact={true} path="/coins" component={CoinList}/>
               <Route path="/login" component={Login} />
               <Route path="/register" component={SignUp} />
-              <Route path="/coins/:id" component={Coin} />
-              <Route exact={true} path="/profile" component={Profile} />
+              <PrivateRoute path="/coins/:id" component={Coin} />
+              <PrivateRoute exact={true} path="/profile" component={Profile} />
               
               <PrivateRoute path="/buy" component={BuyCoin} />
               <PrivateRoute path="/sell/:id" component={SellCoin} />

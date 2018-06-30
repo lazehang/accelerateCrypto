@@ -1,11 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { formatPrice } from '../helpers';
 import { connect } from 'react-redux';
 import { remoteFetchCoins } from '../redux/coin/actions';
 import {getReady} from '../redux/transaction/actions';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import TradingViewWidget, { Themes } from 'react-tradingview-widget';
+import ReactLoading from 'react-loading';
+
 
 class PureCoin extends React.Component {
   constructor(props) {
@@ -20,19 +20,26 @@ class PureCoin extends React.Component {
 
     this.toggle = this.toggle.bind(this);
   }
-  timerID;
 
   componentWillMount = () => {
-    this.props.loadCoins();
-      
+    if(this.props.coins.length === 0 || this.props.coins === null){
+        this.props.loadCoins();
+    }
   }
 
   componentDidMount = () => {
-    setTimeout(() => {
-          this.setState({
-            isFetching: false
+    if(this.props.coins.length === 0 || this.props.coins === null){
+    
+        setTimeout(() => {
+            this.setState({
+                isFetching: false
+            })
+        }, 2000);
+    } else {
+        this.setState({
+            isFetching: this.props.coins.isFetching
         })
-    }, 2000);
+    }
           
   }
 
@@ -77,53 +84,56 @@ class PureCoin extends React.Component {
   render() {
     const coin = this.props.coin || [];
 
-    if (!this.state.isFetching) {
-        return (
+  
+    return (
         <section id="coin">
-        <Modal isOpen={this.state.modal} toggle={this.toggle} size="lg" className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>Chart</ModalHeader>
-          <ModalBody>
-          <TradingViewWidget
-                symbol={`${coin.symbol}USD`}
-                theme={Themes.LIGHT}
-                locale="en"
-                autosize
-            />
-          </ModalBody>
-          
-        </Modal>
+        
         <div className="container">
             <div className="row">
             <div className="col-lg-12 mx-auto text-center">
-                <img className="img img-responsive" src={`../images/${coin.symbol}.png`} />
-                <hr />
-                <Button color="primary" onClick={this.toggle}><i className="fas fa-chart-line"></i> Chart</Button>
-                <form>
-                    <div className="form-group">
-                    <label>Coin Name</label>
-                        <input className="form-control" type="text" defaultValue={coin.name} disabled />
-                    </div>
-                    <div className="form-group">
-                        <label>Rate (HKD) </label>
-                        <input className="form-control" type="text" defaultValue={coin.quotes.HKD.price} />
-                        <small>Note: This may change if you take more time to get ready for the transaction.</small>
-                    </div>
-                    <div className="form-group">
-                        <label>Amount</label>
-                        <input type="number" className="form-control" value={this.state.amount} onChange={this.onChangeField.bind(this, "amount")}/>
-                    </div>
-                    
-                    <input className="btn btn-primary" onClick={this.getReady} defaultValue="Confirm Buy" />
-                </form>
+                { !this.state.isFetching ?
+                  (
+                    <div>
+                        <Modal isOpen={this.state.modal} toggle={this.toggle} size="lg" className={this.props.className}>
+                            <ModalHeader toggle={this.toggle}>Chart</ModalHeader>
+                            <ModalBody>
+                            <TradingViewWidget
+                                    symbol={`${coin.symbol}USD`}
+                                    theme={Themes.LIGHT}
+                                    locale="en"
+                                    autosize
+                                />
+                            </ModalBody>
+                        </Modal>
+                        <img className="img img-responsive" src={`../images/${coin.symbol}.png`} />
+                        <hr />
+                        <Button color="primary" onClick={this.toggle}><i className="fas fa-chart-line"></i> Chart</Button>
+                        <form>
+                            <div className="form-group">
+                            <label>Coin Name</label>
+                                <input className="form-control" type="text" defaultValue={coin.name} disabled />
+                            </div>
+                            <div className="form-group">
+                                <label>Rate (HKD) </label>
+                                <input className="form-control" type="text" defaultValue={coin.quotes.HKD.price} />
+                                <small>Note: This may change if you take more time to get ready for the transaction.</small>
+                            </div>
+                            <div className="form-group">
+                                <label>Amount</label>
+                                <input type="number" className="form-control" value={this.state.amount} onChange={this.onChangeField.bind(this, "amount")}/>
+                            </div>
+                            
+                            <input className="btn btn-primary" onClick={this.getReady} defaultValue="Confirm Buy" />
+                        </form>
+                    </div>)
+                    : <ReactLoading className="mx-auto" type="bars" color="teal" />
+                }
             </div>
             </div>
         </div>
         </section>
-        )
-    }
-    
-   return 'loading ...'
-    
+    )
+        
   }
 }
 
