@@ -47,12 +47,9 @@ class PureSignUp extends Component {
                   <label name="exampleInputPassword1">Password</label>
                   <input type="password" id="inputPassword" className="form-control" value={this.state.password} onChange={this.onChangeField.bind(this, 'password')} placeholder="Password" required />
                 </div>
-                {/* <div className="form-check">
-                  <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                  <label className="form-check-label" name="exampleCheck1">Check me out</label>
-                </div>
-                <br/> */}
-                <button className="btn btn-primary" onClick={this.signup} >Register</button>
+              
+                <br/>
+                <button className="btn btn-primary" onClick={this.signup} >Register</button>              
               </form>
 
             </div>

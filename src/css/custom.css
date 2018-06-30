@@ -3,16 +3,87 @@
 }
 
 .card {
-  min-height: 0;
+    min-height: 0;
+    background: #fff;
 }
 
-
 .card-img-over {
-    width: 25%;
+    width: 100px;
     height: auto;
     margin-top: 5px;
 }
 
-.modal-content {
+.chart-modal-body {
     height: 40rem !important;
+}
+
+.inverse>a,
+.inverse>a>button {
+    color: teal !important;
+}
+
+.inverse>a:hover,
+.inverse>a:focus,
+.inverse>a>button:hover {
+    background: teal;
+    color: #000000 !important;
+    text-decoration: none;
+}
+
+.navbar-toggler>span,
+.navbar-toggler-icon {
+    color: teal !important;
+    z-index: 100000;
+}
+
+table {
+    overflow-x: auto !important;
+}
+
+.bg-inverse a,
+.bg-inverse .navbar-toggler>span,
+.navbar-toggler-icon {
+    color: teal !important;
+}
+
+.bg-inverse>a:hover,
+.bg-inverse>a:focus,
+.bg-inverse>a>button:hover {
+    background: teal !important;
+    color: #000000;
+    text-decoration: none;
+}
+
+a.navbar-brand:hover,
+a.navbar-brand:focus,
+a.navbar-brand:active {
+    background: #212529 !important;
+    color: #05a4a4 !important;
+    text-decoration: none;
+}
+
+.footer-crypto>.footer-account {
+    color: #fff;
+}
+
+.footer-account {
+    padding-left: 2%;
+}
+
+.footer .fa {
+    color: teal;
+    margin-left: 1rem;
+}
+
+.search-btn {
+    max-width: 100px;
+    margin-left: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .search-btn {
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 1rem;
+    }
 }
