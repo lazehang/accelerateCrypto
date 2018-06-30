@@ -13,22 +13,15 @@ export default class Home extends React.Component {
     render() {
         return (
             <div>                    
-            <header className="masthead text-center text-white d-flex">
-                <div className="container my-auto">
-                    <div className="row">
-                    <div className="col-lg-10 mx-auto">
-                        <h1 className="text-uppercase">
-                        <strong >Your Favorite Virtual Trading Platform</strong>
-                        </h1>
-                        <hr />
+                <section>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-12 mx-auto">
+                                <img src="https://www.pagevamp.com/homepages/assets/images/banner.jpg" width="100%" />
+                            </div>
+                        </div>
                     </div>
-                    <div className="col-lg-8 mx-auto">
-                        <p className="text-faded mb-5">Virtuality leads to reality</p>
-                        <Link to="/coins" className="btn btn-primary btn-xl js-scroll-trigger">Find Out More</Link>
-                    </div>
-                    </div>
-                </div>
-            </header>
+                </section>
 
                 <section className="bg-primary" id="about">
                 <div className="container">

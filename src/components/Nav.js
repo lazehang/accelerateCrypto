@@ -45,7 +45,7 @@ class PureNav extends React.Component {
           const isAuthenticated = (localStorage.getItem('token') != null);
           return (
           <Navbar fixed="top" color="inverse" expand="md">
-            <NavbarBrand href="/">AcceleratedCrypto</NavbarBrand>
+            <NavbarBrand href="/"><i className="fas fa-rocket"></i> AcceleratedCrypto</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>

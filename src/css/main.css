@@ -5,7 +5,8 @@ html {
 }
 
 body {
-    font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+    /* font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif; */
+    font-family: 'Open Sans', sans-serif;
 }
 
 hr {
