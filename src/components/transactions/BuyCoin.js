@@ -112,7 +112,7 @@ class PureBuyCoin extends React.Component {
                            }
                             <hr />
                             
-                            <button className="btn btn-success" onClick={this.buy} >Confirm Buy</button> |
+                            <button className="btn btn-primary" onClick={this.buy} >Confirm Buy</button> 
                             <button className="btn btn-danger" onClick={this.cancel} >Cancel</button>
                         </div>
                     </div>

@@ -1,15 +1,18 @@
 import * as React from 'react'; 
 import {connect} from 'react-redux';
-import {getUserAccount} from '../redux/account/actions'
+import {getUserAccount, getProfit} from '../redux/account/actions'
 
 const footerStyle = {
   position: 'fixed',
-  bottom: 0
+  bottom: 0,
+  padding: '1rem 0',
+  width: '100%'
 }
 
 class PureFooter extends React.Component {
 
-    componentDidMount = () => {
+    componentWillMount = () => {
+        this.props.loadProfit();                
         this.props.loadBalance();
     }
 
@@ -20,12 +23,19 @@ class PureFooter extends React.Component {
     render() {
         return (
             <footer style={footerStyle} className="footer">
-            <p>
-                <i className="icon-user"></i> <a href="#">{localStorage.getItem('username') ? localStorage.getItem('username') : 'Guest'}</a>
+            
+            <div className="col-sm-4 col-md-5 col-lg-5 col-xs-12 mx-auto bg-dark">
+                <span>
+                    <i className="fa fa-user"></i> <a href="#">{localStorage.getItem('username') ? localStorage.getItem('username') : 'Guest'}</a>
+                </span>
+                <span>
                 { this.props.isAuthenticated ? 
-                    `Balance: ${this.props.account}`
-            : ''} 
-            </p>
+                    `Balance: ${this.props.account} Profit: ${this.props.status}`
+                : ''
+                } 
+                </span>
+            </div>
+                
                 
           </footer>
         )
@@ -34,9 +44,11 @@ class PureFooter extends React.Component {
 
 const Footer = connect((state) => ({
     account: state.account.account,
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    status: state.account.status
 }), (dispatch) => ({
-  loadBalance: () => dispatch(getUserAccount())
+  loadBalance: () => {dispatch(getUserAccount())},
+  loadProfit: () => {dispatch(getProfit())}
 }))(PureFooter);
 
 export default Footer;

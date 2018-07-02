@@ -81,6 +81,12 @@ class PureCoin extends React.Component {
     });
   }
 
+    ImageExist = (url) => {
+        var img = new Image();
+        img.src = url;
+        return img.height != 0;
+    }
+
   render() {
     const coin = this.props.coin || [];
 
@@ -95,17 +101,20 @@ class PureCoin extends React.Component {
                   (
                     <div>
                         <Modal isOpen={this.state.modal} toggle={this.toggle} size="lg" className={this.props.className}>
-                            <ModalHeader toggle={this.toggle}>Chart</ModalHeader>
-                            <ModalBody>
+                            <ModalBody className="chart-modal-body">
                             <TradingViewWidget
                                     symbol={`${coin.symbol}USD`}
-                                    theme={Themes.LIGHT}
+                                    theme={Themes.DARK}
                                     locale="en"
                                     autosize
                                 />
                             </ModalBody>
                         </Modal>
-                        <img className="img img-responsive" src={`../images/${coin.symbol}.png`} />
+                        {
+                        this.ImageExist(`../images/${coin.symbol}.png`) ? 
+                        (<img className="img img-responsive" src={`../images/${coin.symbol}.png`} />) : 
+                        (<img className="img img-responsive" src={`../images/GBYTE.png`} />)
+                        }
                         <hr />
                         <Button color="primary" onClick={this.toggle}><i className="fas fa-chart-line"></i> Chart</Button>
                         <form>
@@ -123,7 +132,7 @@ class PureCoin extends React.Component {
                                 <input type="number" className="form-control" value={this.state.amount} onChange={this.onChangeField.bind(this, "amount")}/>
                             </div>
                             
-                            <input className="btn btn-primary" onClick={this.getReady} defaultValue="Confirm Buy" />
+                            <Button color="primary" onClick={this.getReady}>Confirm Buy</Button>
                         </form>
                     </div>)
                     : <ReactLoading className="mx-auto" type="bars" color="teal" />

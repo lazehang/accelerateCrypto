@@ -16,8 +16,13 @@ class PureCoinList extends React.Component {
         this.state = {
             query: '',
             coins:{},
-            hasNoSearchResult: false
+            hasNoSearchResult: false,
+            componentsLoading: true
         }
+    }
+
+    componentDidMount = () => {
+
     }
 
 
@@ -41,7 +46,8 @@ class PureCoinList extends React.Component {
 
     }
 
-    search = () => {
+    search = (e) => {
+        e.preventDefault();
         const coins = this.props.coins;
         const query = this.state.query;
         let searchResults = [];
@@ -89,18 +95,18 @@ class PureCoinList extends React.Component {
                 <div className="container">
                     <div className="row">
                     <div className="col-lg-12 mx-auto text-center">
-                        <Form inline>
-                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                        <Form inline className="mx-auto">
+                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0 mx-auto">
                             <Label className="mr-sm-2">Search</Label>
-                            <Input type="text" id="examplePassword" onChange={this.handleSearchChange} value={this.state.query} placeholder="BTC" />
+                            <Input className="form-control" type="text" id="examplePassword" onChange={this.handleSearchChange} value={this.state.query} placeholder="BTC" />
                             </FormGroup>
-                            <Input className="btn btn-primary" onClick={this.search} value="Search" />
+                            <button className="btn btn-primary" onClick={this.search}><i className="fas fa-search"></i></button>
                         </Form>
     
                         { this.state.query.length > 0 ? (<Badge onClick={this.removeSearch}>{this.state.query} x</Badge>) : '' }
 
                         <div className="py-4"> 
-                        { this.props.isFetching ? <ReactLoading className="mx-auto" type="bars" color="teal" /> :
+                        { this.props.isFetching && this.state.componentsLoading ? <ReactLoading className="mx-auto" type="bars" color="teal" /> :
                             this.state.hasNoSearchResult ? 'No Results' :
                             (
                                 <CardColumns>

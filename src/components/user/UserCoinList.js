@@ -17,7 +17,8 @@ class PureUserCoinList extends React.Component {
     let coins = this.props.coins;
 
     return (
-      <table className="table bg-light mt-3">
+      <div className="table-responsive">
+      <table className="table mx-auto mt-3">
         <thead>
           <tr>
             <th>Coin ID</th>
@@ -42,12 +43,13 @@ class PureUserCoinList extends React.Component {
             )) :
             (
               <tr>
-                <td>You have no coins at the moment <Link to="/coins">Buy Coins</Link></td>
+                <td colspan="6">You have no coins at the moment <Link to="/coins">Buy Coins</Link></td>
               </tr>
             )
           }
         </tbody>
       </table>
+      </div>
     )
   }
 }

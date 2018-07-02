@@ -7,6 +7,9 @@ export const ADD_USER_COINS = 'ADD_USER_COINS';
 export const ADD_COIN_PRICE = 'ADD_COIN_PRICE';
 export const ADD_TRANSACTIONS = 'ADD_TRANSACTIONS';
 export const CLEAR_TRANSACTIONS = 'CLEAR_TRANSACTIONS';
+export const ADD_STATUS = 'ADD_STATUS';
+export const CLEAR_STATUS = 'CLEAR_STATUS';
+
 
 const token = localStorage.getItem("token");
 const headers = {
@@ -45,6 +48,16 @@ export function getUserAccount() {
     }
 }
 
+export function getProfit() {
+    return (dispatch) => {
+        return axios.get(process.env.REACT_APP_API_SERVER + 'users/status', { headers })
+            .then((resp) => {
+                dispatch(clearStatus());
+                dispatch(addStatus(resp.data.status));
+            })
+    }
+}
+
 export function getUserCoins() {
     return (dispatch) => {
         return axios.get(process.env.REACT_APP_API_SERVER + 'users/coins', {
@@ -66,6 +79,13 @@ export function addAccount(amount) {
     return {
         type: ADD_ACCOUNT,
         amount
+    }
+}
+
+export function addStatus(status) {
+    return {
+        type: ADD_STATUS,
+        status
     }
 }
 
@@ -110,5 +130,11 @@ export function addTransactions(transactions) {
 export function clearTransactions() {
     return {
         type: CLEAR_TRANSACTIONS
+    }
+}
+
+export function clearStatus() {
+    return {
+        type: CLEAR_STATUS
     }
 }

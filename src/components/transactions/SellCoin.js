@@ -177,17 +177,20 @@ class PureSellCoin extends React.Component {
                     </div>
                     <div className="form-group">
                         <label>Amount (HKD) </label>
-                        <input className="form-control" onChange={this.onChangeAmount} type="number" value={this.state.amount} />
+                        <input className="form-control" onChange={this.onChangeAmount} type="number" step="any" value={this.state.amount} />
                         <small>Note: This may change if you take more time to get ready for the transaction.</small>
                         <Alert toggle={this.onDismiss} isOpen={this.state.quantityExceeded} fade="false" color="danger">sorry amount exceeded</Alert>
                     </div>
+        
                     <div className="form-group">
                         <label>Selling Quantity</label>
-                        {this.state.selling}
+                        <br />
+                        <label >{this.state.selling} </label>
+                        <br />
                         <input type="range" onChange={this.handleRangeChange} id="cowbell" min="0" max={coin.quantity} value={this.state.selling} step="0.01" />
-                        <small>number of coins you want to sell</small>
+                        <br /><small>number of coins you want to sell</small>
                         </div>
-                    <input className="btn btn-primary" onClick={this.toggle} defaultValue="Sell" />
+                    <Button color="primary" onClick={this.toggle}>Sell</Button>
                 </form>
             </div>
             </div>
