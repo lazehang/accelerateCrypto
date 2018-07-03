@@ -99,8 +99,8 @@ class PureCoinList extends React.Component {
                             <FormGroup className="mb-2 mr-sm-2 mb-sm-0 mx-auto">
                             <Label className="mr-sm-2">Search</Label>
                             <Input className="form-control" type="text" id="examplePassword" onChange={this.handleSearchChange} value={this.state.query} placeholder="BTC" />
+                            <button className="btn btn-primary form-control search-btn" onClick={this.search}><i className="fas fa-search"></i></button>                            
                             </FormGroup>
-                            <button className="btn btn-primary" onClick={this.search}><i className="fas fa-search"></i></button>
                         </Form>
     
                         { this.state.query.length > 0 ? (<Badge onClick={this.removeSearch}>{this.state.query} x</Badge>) : '' }

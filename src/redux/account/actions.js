@@ -50,7 +50,11 @@ export function getUserAccount() {
 
 export function getProfit() {
     return (dispatch) => {
-        return axios.get(process.env.REACT_APP_API_SERVER + 'users/status', { headers })
+        return axios.get(process.env.REACT_APP_API_SERVER + 'users/status', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
             .then((resp) => {
                 dispatch(clearStatus());
                 dispatch(addStatus(resp.data.status));

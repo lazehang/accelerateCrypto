@@ -1,36 +1,45 @@
 import * as React from 'react'; 
 import {connect} from 'react-redux';
-import {getUserAccount, getProfit} from '../redux/account/actions'
+import {getUserAccount, getProfit} from '../redux/account/actions';
+import {Link} from 'react-router-dom';
 
 const footerStyle = {
   position: 'fixed',
   bottom: 0,
-  padding: '1rem 0',
   width: '100%'
 }
 
 class PureFooter extends React.Component {
 
     componentWillMount = () => {
-        this.props.loadProfit();                
         this.props.loadBalance();
     }
 
+    componentDidMount = () => {
+        this.props.loadProfit();                        
+    }   
+
     componentWillUpdate = () => {
-        this.props.loadBalance();        
+        this.props.loadBalance();
+        this.props.loadProfit();                
+                
     }
     
     render() {
         return (
             <footer style={footerStyle} className="footer">
             
-            <div className="col-sm-4 col-md-5 col-lg-5 col-xs-12 mx-auto bg-dark">
-                <span>
+            <div className="footer-crypto py-3 col-sm-4 col-md-5 col-lg-5 col-xs-12 mx-auto bg-dark">
+                <div className="col-xs-12">
                     <i className="fa fa-user"></i> <a href="#">{localStorage.getItem('username') ? localStorage.getItem('username') : 'Guest'}</a>
-                </span>
-                <span>
+                </div>
+                
+                <span className="footer-account">
                 { this.props.isAuthenticated ? 
-                    `Balance: ${this.props.account} Profit: ${this.props.status}`
+                    (
+                        <span className="mx-auto">Balance: HKD{this.props.account} |
+                        Profit: <Link to="/transaction" className={ this.props.status > 0 ? "text-success" : this.props.status < 0 ? "text-danger" : "text-default" }>{this.props.status} %</Link></span>
+                    )
                 : ''
                 } 
                 </span>

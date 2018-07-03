@@ -25,8 +25,16 @@
 .inverse>a:hover,
 .inverse>a:focus,
 .inverse>a>button:hover {
-    background: teal !important;
+    background: teal;
     color: #000000 !important;
+    text-decoration: none;
+}
+
+a.navbar-brand:hover,
+a.navbar-brand:focus,
+a.navbar-brand:active {
+    background: #000000 !important;
+    color: teal !important;
     text-decoration: none;
 }
 
@@ -52,4 +60,30 @@ table {
     background: teal !important;
     color: #000000;
     text-decoration: none;
+}
+
+.footer-crypto>.footer-account {
+    color: #fff;
+}
+
+.footer-account {
+    padding-left: 2%;
+}
+
+.footer .fa {
+    color: teal;
+    margin-left: 1rem;
+}
+
+.search-btn {
+    max-width: 100px;
+    margin-left: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .search-btn {
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 1rem;
+    }
 }

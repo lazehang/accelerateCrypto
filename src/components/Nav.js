@@ -74,7 +74,7 @@ class PureNav extends React.Component {
                 </UncontrolledDropdown> 
                 : 
                 <NavItem>
-                    <Link to="/login" className="nav-link js-scroll-trigger" >
+                    <Link to="/login">
                         <NavLink>Login</NavLink>
                     </Link>
                 </NavItem>

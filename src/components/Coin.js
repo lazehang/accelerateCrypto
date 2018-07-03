@@ -15,7 +15,9 @@ class PureCoin extends React.Component {
           amount: "",
           modal: false,
           time: 0,
-          isFetching: true
+          isFetching: true,
+          lessThenLimit: false
+
       }
 
     this.toggle = this.toggle.bind(this);
@@ -54,13 +56,8 @@ class PureCoin extends React.Component {
     this.props.history.push('/buy')
     }
 
-    ImageExist = (url) => {
-        var img = new Image();
-        img.src = url;
-        return img.height != 0;
-    }
-
     getReady = () => {
+        if (this.state.amount >= 100) {
             if (this.state.amount < this.props.amount) {
                 this.props.getReady(this.state.amount, this.props.coin.id);
                 setTimeout(() => {
@@ -71,6 +68,12 @@ class PureCoin extends React.Component {
             } else {
                 alert("Insufficient Funds")
             }
+        }else {
+            this.setState({
+                lessThenLimit: true
+            });
+        }
+           
         
     }
 
@@ -130,6 +133,10 @@ class PureCoin extends React.Component {
                             <div className="form-group">
                                 <label>Amount</label>
                                 <input type="number" className="form-control" value={this.state.amount} onChange={this.onChangeField.bind(this, "amount")}/>
+                                { this.state.lessThenLimit ? (
+                                    <small className="text-danger">Sorry !! Minimum expense amount is HKD 100.</small>)
+                                    : ''
+                                }
                             </div>
                             
                             <Button color="primary" onClick={this.getReady}>Confirm Buy</Button>

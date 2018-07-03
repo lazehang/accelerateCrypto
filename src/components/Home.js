@@ -17,7 +17,7 @@ export default class Home extends React.Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-12 mx-auto">
-                                <img src="https://www.pagevamp.com/homepages/assets/images/banner.jpg" width="100%" />
+                                <img src="http://magicmockups.com/media/screen/guest/86/1b7cb58b6e224201bca7e9acf125512e_14_1600.jpg" width="100%" />
                             </div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@ export default class Home extends React.Component {
                 <section className="bg-dark text-white">
                 <div className="container text-center">
                     <h2 className="mb-4">Accelerated Cryptos</h2>
-                    <a className="btn btn-light btn-xl sr-button" href="http://startbootstrap.com/template-overviews/creative/">Download Now!</a>
+                    <a className="btn btn-light btn-xl sr-button" href="https://github.com/naterexw/coinOfTheDay">Source Code</a>
                 </div>
                 </section>
 
