@@ -10,6 +10,8 @@ export const CLEAR_TRANSACTIONS = 'CLEAR_TRANSACTIONS';
 export const ADD_STATUS = 'ADD_STATUS';
 export const CLEAR_STATUS = 'CLEAR_STATUS';
 
+const user_id = localStorage.getItem("user_id");
+
 
 const token = localStorage.getItem("token");
 const headers = {
@@ -18,7 +20,7 @@ const headers = {
 
 export function getUserTransactions() {
     return (dispatch) => {
-        return axios.get(process.env.REACT_APP_API_SERVER + 'users/log', {
+        return axios.get(process.env.REACT_APP_API_SERVER + 'users/log/' + user_id, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -33,7 +35,7 @@ export function getUserTransactions() {
 
 export function getUserAccount() {
     return (dispatch) => {
-        return axios.get(process.env.REACT_APP_API_SERVER + 'users/account', {
+        return axios.get(process.env.REACT_APP_API_SERVER + 'users/account/' + user_id, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
@@ -50,7 +52,7 @@ export function getUserAccount() {
 
 export function getProfit() {
     return (dispatch) => {
-        return axios.get(process.env.REACT_APP_API_SERVER + 'users/status', {
+        return axios.get(process.env.REACT_APP_API_SERVER + 'users/status/' + user_id, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
@@ -64,7 +66,7 @@ export function getProfit() {
 
 export function getUserCoins() {
     return (dispatch) => {
-        return axios.get(process.env.REACT_APP_API_SERVER + 'users/coins', {
+        return axios.get(process.env.REACT_APP_API_SERVER + 'users/coins/' + user_id, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }

@@ -11,19 +11,10 @@ const footerStyle = {
 
 class PureFooter extends React.Component {
 
-    componentWillMount = () => {
-        this.props.loadBalance();
-    }
-
     componentDidMount = () => {
+        this.props.loadBalance();
         this.props.loadProfit();                        
     }   
-
-    componentWillUpdate = () => {
-        this.props.loadBalance();
-        this.props.loadProfit();                
-                
-    }
     
     render() {
         return (

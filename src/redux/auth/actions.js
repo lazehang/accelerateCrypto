@@ -56,6 +56,8 @@ export function loginUser(username, password) {
                 // If login was successful, set the token in local storage
                 localStorage.setItem("token", response.data.token)
                 localStorage.setItem("username", response.data.user.username);
+                localStorage.setItem("user_id", response.data.user.id);
+
                 // Dispatch the success action
                 dispatch(loginSuccess(response.data.user));
             }
@@ -67,6 +69,7 @@ export function logout() {
     return (dispatch) => {
         localStorage.removeItem("token");
         localStorage.removeItem("username");
+        localStorage.removeItem("user_id")
         dispatch(logoutState());
     }
 
