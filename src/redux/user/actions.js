@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Dispatch } from 'redux';
 
 export const ADD_USER_INFO = 'ADD_USER_INFO';
 const user_id = localStorage.getItem("user_id");

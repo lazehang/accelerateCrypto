@@ -1,10 +1,7 @@
-import { Dispatch } from 'redux';
 import axios from 'axios';
 
 const token = localStorage.getItem("token");
-const headers = {
-    "Authorization": `Bearer ${token}`
-}
+
 const user_id = localStorage.getItem("user_id");
 
 export const ADD_TO_TRANSACT = 'ADD_TO_TRANSACT';

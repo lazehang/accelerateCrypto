@@ -1,5 +1,5 @@
-import { Dispatch } from 'redux';
 import axios from 'axios';
+import { getUserAccount, getProfit } from '../account/actions';
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
@@ -60,6 +60,8 @@ export function loginUser(username, password) {
 
                 // Dispatch the success action
                 dispatch(loginSuccess(response.data.user));
+                dispatch(getUserAccount(localStorage.getItem('user_id')));
+                dispatch(getProfit(localStorage.getItem('user_id')));
             }
         }).catch(err => console.log("Error: ", err))
     }
@@ -73,13 +75,6 @@ export function logout() {
         dispatch(logoutState());
     }
 
-}
-
-export function loginFailure(message) {
-    return {
-        type: LOGIN_FAILURE,
-        message: message
-    }
 }
 
 export function logoutState() {

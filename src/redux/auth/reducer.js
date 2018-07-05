@@ -1,4 +1,4 @@
-import { ADD_USER, LoginActions, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_STATE } from "./actions";
+import { ADD_USER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_STATE } from "./actions";
 
 const initialState = {
     isAuthenticated: (localStorage.getItem('token') != null),

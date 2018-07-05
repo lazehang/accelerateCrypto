@@ -9,7 +9,6 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -56,9 +55,7 @@ class PureNav extends React.Component {
             <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <Link to="/coins">
-                    <NavLink onClick={this.closeNav}>Platform</NavLink>
-                </Link>
+                <Link to="/coins" className="nav-link" onClick={this.closeNav}>Platform</Link>
               </NavItem>
               {
                 isAuthenticated ? 
@@ -74,8 +71,8 @@ class PureNav extends React.Component {
                 </UncontrolledDropdown> 
                 : 
                 <NavItem>
-                    <Link to="/login">
-                        <NavLink>Login</NavLink>
+                    <Link className="nav-link" to="/login">
+                        Login
                     </Link>
                 </NavItem>
             }

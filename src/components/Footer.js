@@ -12,8 +12,10 @@ const footerStyle = {
 class PureFooter extends React.Component {
 
     componentDidMount = () => {
-        this.props.loadBalance();
-        this.props.loadProfit();                        
+        if (this.props.isAuthenticated) {
+            this.props.loadBalance(localStorage.getItem('user_id'));
+            this.props.loadProfit(localStorage.getItem('user_id'));
+        }                        
     }   
     
     render() {
@@ -22,7 +24,7 @@ class PureFooter extends React.Component {
             
             <div className="footer-crypto py-3 col-sm-4 col-md-5 col-lg-5 col-xs-12 mx-auto bg-dark">
                 <div className="col-xs-12">
-                    <i className="fa fa-user"></i> <a href="#">{localStorage.getItem('username') ? localStorage.getItem('username') : 'Guest'}</a>
+                    <i className="fa fa-user"></i> <a href="/profile">{localStorage.getItem('username') ? localStorage.getItem('username') : 'Guest'}</a>
                 </div>
                 
                 <span className="footer-account">
@@ -47,8 +49,8 @@ const Footer = connect((state) => ({
     isAuthenticated: state.auth.isAuthenticated,
     status: state.account.status
 }), (dispatch) => ({
-  loadBalance: () => {dispatch(getUserAccount())},
-  loadProfit: () => {dispatch(getProfit())}
+  loadBalance: (user_id) => {dispatch(getUserAccount(user_id))},
+  loadProfit: (user_id) => {dispatch(getProfit(user_id))}
 }))(PureFooter);
 
 export default Footer;

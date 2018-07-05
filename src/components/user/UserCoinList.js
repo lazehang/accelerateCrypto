@@ -5,9 +5,6 @@ import { setPrice } from '../../redux/account/actions'
 import ChangeBadge from '../ChangeBadge';
 
 class PureUserCoinList extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   setPrice(id) {
     this.props.setPrice(id);

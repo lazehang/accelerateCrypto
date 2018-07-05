@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getUserCoins, getUserTransactions } from '../../redux/account/actions';
+import { getUserTransactions } from '../../redux/account/actions';
 import { remoteFetchCoins } from '../../redux/coin/actions';
-import { Link } from 'react-router-dom';
-import UserCoinList from './UserCoinList';
 import UserDetail from './UserDetail';
 import {getUser} from '../../redux/user/actions';
 import ReactLoading from 'react-loading';
 import {Table} from 'reactstrap';
 import Moment from 'moment';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
 
 class PureTransaction extends React.Component {
@@ -48,20 +46,21 @@ class PureTransaction extends React.Component {
 
         
         Object.keys(coins).map((k,v) => {
-            transactions.map((t) => {
-                if (t.coin_id == k) {
+            return transactions.map((t) => {
+                
+                if (t.coin_id === parseInt(k,10)) {
                         t.name = coins[k].name;
                         t.current_rate = coins[k].quotes.HKD.price;
                         t.change_percent = this.round((t.rate - t.current_rate)/t.rate * 100);
-                    if (t.type == "buy") {
+                    if (t.type === "buy") {
                         buy.push(t);
                         
                     } else {
                                
                         sell.push(t);
                     }
-                }
-                
+                }  
+                return this;              
             })
         })
         

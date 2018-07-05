@@ -1,4 +1,3 @@
-import { Dispatch } from 'redux';
 import axios from 'axios';
 
 export const ADD_ACCOUNT = 'ADD_ACCOUNT';
@@ -12,55 +11,62 @@ export const CLEAR_STATUS = 'CLEAR_STATUS';
 
 const user_id = localStorage.getItem("user_id");
 
-
-const token = localStorage.getItem("token");
-const headers = {
-    "Authorization": `Bearer ${token}`
-}
-
 export function getUserTransactions() {
     return (dispatch) => {
-        return axios.get(process.env.REACT_APP_API_SERVER + 'users/log/' + user_id, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        }).then((resp) => {
-            if (resp.data) {
-                dispatch(clearTransactions());
-                dispatch(addTransactions(resp.data))
-            }
-        })
-    }
-}
-
-export function getUserAccount() {
-    return (dispatch) => {
-        return axios.get(process.env.REACT_APP_API_SERVER + 'users/account/' + user_id, {
+        if (user_id !== null) {
+            return axios.get(process.env.REACT_APP_API_SERVER + 'users/log/' + user_id, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
-            })
-            .then((resp) => {
+            }).then((resp) => {
                 if (resp.data) {
-                    dispatch(addAccount(resp.data.amount))
-                } else {
-                    dispatch(addAccount(0))
+                    dispatch(clearTransactions());
+                    dispatch(addTransactions(resp.data))
                 }
-            }).catch((err) => console.log(err.message))
+            })
+        }
     }
 }
 
-export function getProfit() {
+export function getUserAccount(userid) {
     return (dispatch) => {
-        return axios.get(process.env.REACT_APP_API_SERVER + 'users/status/' + user_id, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-            .then((resp) => {
-                dispatch(clearStatus());
-                dispatch(addStatus(resp.data.status));
-            })
+        if (userid === null) {
+            userid = user_id;
+        }
+        if (userid !== null) {
+
+            return axios.get(process.env.REACT_APP_API_SERVER + 'users/account/' + userid, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                })
+                .then((resp) => {
+                    if (resp.data) {
+                        dispatch(addAccount(resp.data.amount))
+                    } else {
+                        dispatch(addAccount(0))
+                    }
+                }).catch((err) => console.log(err.message))
+        }
+    }
+}
+
+export function getProfit(userid) {
+    return (dispatch) => {
+        if (userid === null) {
+            userid = user_id;
+        }
+        if (userid !== null) {
+            return axios.get(process.env.REACT_APP_API_SERVER + 'users/status/' + userid, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                })
+                .then((resp) => {
+                    dispatch(clearStatus());
+                    dispatch(addStatus(resp.data.status));
+                })
+        }
     }
 }
 

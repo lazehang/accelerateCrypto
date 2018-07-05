@@ -1,11 +1,6 @@
 import * as React from 'react';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
 import{
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect
+  Link
 } from 'react-router-dom';
 import '../css/main.css'
 
@@ -13,11 +8,14 @@ export default class Home extends React.Component {
     render() {
         return (
             <div>                    
-                <section>
+                <section className="home-header">
                     <div className="container">
                         <div className="row">
-                            <div className="col-12 mx-auto">
+                            <div className="col-12 mx-auto text-center">
+                                <h3><i className="fas fa-rocket"></i> AcceleratedCrypto</h3>
+                                <p>A platform to trade cryptocurrencies with virtual money.</p> 
                                 <img src="http://magicmockups.com/media/screen/guest/86/1b7cb58b6e224201bca7e9acf125512e_14_1600.jpg" width="100%" />
+                                   
                             </div>
                         </div>
                     </div>
@@ -49,21 +47,21 @@ export default class Home extends React.Component {
                     <div className="row">
                     <div className="col-lg-3 col-md-6 text-center">
                         <div className="service-box mt-5 mx-auto">
-                        <i className="fa fa-4x fa-diamond text-primary mb-3 sr-icons"></i>
+                        <i className="fa fa-4x fa-chart-line text-primary mb-3 sr-icons"></i>
                         <h3 className="mb-3">Real Time Datas</h3>
                         <p className="text-muted mb-0"></p>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6 text-center">
                         <div className="service-box mt-5 mx-auto">
-                        <i className="fa fa-4x fa-paper-plane text-primary mb-3 sr-icons"></i>
+                        <i className="fa fa-4x fa-coins text-primary mb-3 sr-icons"></i>
                         <h3 className="mb-3">Virtual Cash</h3>
                         <p className="text-muted mb-0"></p>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-6 text-center">
                         <div className="service-box mt-5 mx-auto">
-                        <i className="fa fa-4x fa-newspaper-o text-primary mb-3 sr-icons"></i>
+                        <i className="fa fa-4x fa-dollar-sign text-primary mb-3 sr-icons"></i>
                         <h3 className="mb-3">FREE !!</h3>
                         <p className="text-muted mb-0"></p>
                         </div>
@@ -82,7 +80,7 @@ export default class Home extends React.Component {
                 <section className="bg-dark text-white">
                 <div className="container text-center">
                     <h2 className="mb-4">Accelerated Cryptos</h2>
-                    <a className="btn btn-light btn-xl sr-button" href="https://github.com/naterexw/coinOfTheDay">Source Code</a>
+                    <img src="http://magicmockups.com/media/screen/guest/40/b4cd1ed0ca3a4428ad88e9edf46dfab5_29_1600.jpg" width="100%" />                    
                 </div>
                 </section>
 

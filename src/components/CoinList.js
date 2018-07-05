@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { remoteFetchCoins } from '../redux/coin/actions';
 import { Link } from 'react-router-dom';
 import ChangeBadge from './ChangeBadge';
-import { Form, FormGroup, Label, Input, Card, Badge, Button, CardImg, CardTitle, CardText, CardColumns,
+import { Form, FormGroup, Label, Input, Card, Badge, CardImg, CardTitle, CardText, CardColumns,
  CardSubtitle, CardBody } from 'reactstrap';
 import ReactLoading from 'react-loading';
 
@@ -36,7 +36,7 @@ class PureCoinList extends React.Component {
     ImageExist = (url) => {
         var img = new Image();
         img.src = url;
-        return img.height != 0;
+        return img.height !== 0;
     }
 
     handleSearchChange = (e) => {
@@ -46,15 +46,20 @@ class PureCoinList extends React.Component {
 
     }
 
+    round(num) {
+        return Math.round(num * 100) / 100;
+    }
+
     search = (e) => {
         e.preventDefault();
         const coins = this.props.coins;
         const query = this.state.query;
         let searchResults = [];
         Object.keys(coins).map((k,v) => {
-            if (coins[k].name.search(query) != -1 || coins[k].symbol.search(query) != -1) {
+            if (coins[k].name.search(query) !== -1 || coins[k].symbol.search(query) !== -1) {
                 searchResults.push(coins[k]);
             }
+            return searchResults;
         });
 
         if (searchResults.length === 0) {
@@ -86,9 +91,7 @@ class PureCoinList extends React.Component {
             coins = this.state.coins;
 
         }
-        console.log(this.state.hasNoSearchResult)
-
-
+       
         return (
 
             <section id="coinList">
@@ -123,7 +126,7 @@ class PureCoinList extends React.Component {
                                                 <CardBody>
                                                 <CardTitle>{coins[k].name}</CardTitle>
                                                 <CardSubtitle>{coins[k].symbol}</CardSubtitle>
-                                                <CardText>HKD {coins[k].quotes.HKD.price} <ChangeBadge change={coins[k].quotes.HKD.percent_change_24h} /></CardText>
+                                                <CardText>HKD {this.round(coins[k].quotes.HKD.price)} <ChangeBadge change={coins[k].quotes.HKD.percent_change_24h} /></CardText>
                                                 <Link to={`/coins/${coins[k].id}`}>Buy</Link>
                                                 </CardBody>
                                             </Card>

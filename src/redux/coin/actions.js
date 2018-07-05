@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Dispatch } from "react-redux";
 
 export const ADD_COINS = 'ADD_COINS';
 export const SOCKET_UPDATE_COINS = 'SOCKET_UPDATE_COINS';

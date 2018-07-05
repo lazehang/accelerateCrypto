@@ -3,6 +3,7 @@ import { loginUser } from '../redux/auth/actions';
 import { connect } from 'react-redux';
 import { Alert } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { getUserAccount, getProfit } from "../redux/account/actions";
 
 class PureLogin extends Component {
   constructor(props) {
@@ -64,7 +65,7 @@ class PureLogin extends Component {
               <h2 className="text-center">Accelerate Crypto</h2>
               <hr />
               <div>
-                <Alert color="danger" isOpen={this.state.error} toggle={this.onDismiss} fade="false">
+                <Alert color="danger" isOpen={this.state.error} toggle={this.onDismiss} fade={false}>
                   Sorry !! Wrong credentials for login
                 </Alert>
                 <div className="form-group">
@@ -94,7 +95,10 @@ class PureLogin extends Component {
 const Login = connect((state) => ({
   isAuthenticated: state.auth.isAuthenticated
 }), (dispatch) => ({
-  login: (username, password) => dispatch(loginUser(username, password))
+  login: (username, password) => {dispatch(loginUser(username, password))},
+  loadBalance: () => {dispatch(getUserAccount())},
+  loadStatus: () => {dispatch(getProfit())}
+
 }))(PureLogin)
 
 export default Login;

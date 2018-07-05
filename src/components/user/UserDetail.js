@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import {Badge} from 'reactstrap';
-import {Link} from 'react-router-dom';
 import ReactLoading from 'react-loading';
 
 class PureUserDetail extends React.Component {
@@ -14,7 +13,7 @@ class PureUserDetail extends React.Component {
                 (<div className="container mb-3">
                     <div className="row">
                         <div className="col-12">
-                            <img width="200" className="img img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png" />
+                            <img width="200" alt="user" className="img img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png" />
                             <h3>{user.name}</h3>
                             <Badge color="secondary">{user.username}</Badge>
                         </div>

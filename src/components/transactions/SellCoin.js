@@ -3,7 +3,6 @@ import { sell } from '../../redux/transaction/actions';
 import { connect } from 'react-redux';
 import { getUserCoins } from '../../redux/account/actions';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
-import { withRouter } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 
 
@@ -160,7 +159,7 @@ class PureSellCoin extends React.Component {
         <div className="container">
             <div className="row">
             <div className="col-lg-12 mx-auto text-center">
-                <img className="img img-responsive" src={`../images/${coin.symbol}.png`} />
+                <img className="img img-responsive" src={`../images/${coin.symbol}.png`} alt="logo"/>
                 <hr />
                 Total Coins: {coin.quantity}
                 <form>
@@ -203,7 +202,7 @@ class PureSellCoin extends React.Component {
 }
 
 const SellCoin = connect((state, ownProps) => ({
-    coin: state.account.coins.find(coin => coin.id === parseInt(ownProps.match.params.id)),
+    coin: state.account.coins.find(coin => coin.id === parseInt(ownProps.match.params.id, 10)),
     isFetching: state.account.isFetching
 }), (dispatch) => ({
     loadCoins: () => { dispatch(getUserCoins()) },

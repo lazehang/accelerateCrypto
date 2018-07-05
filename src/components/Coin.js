@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { remoteFetchCoins } from '../redux/coin/actions';
 import {getReady} from '../redux/transaction/actions';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalBody } from 'reactstrap';
 import TradingViewWidget, { Themes } from 'react-tradingview-widget';
 import ReactLoading from 'react-loading';
 
@@ -87,7 +87,7 @@ class PureCoin extends React.Component {
     ImageExist = (url) => {
         var img = new Image();
         img.src = url;
-        return img.height != 0;
+        return img.height !== 0;
     }
 
   render() {
@@ -115,8 +115,8 @@ class PureCoin extends React.Component {
                         </Modal>
                         {
                         this.ImageExist(`../images/${coin.symbol}.png`) ? 
-                        (<img className="img img-responsive" src={`../images/${coin.symbol}.png`} />) : 
-                        (<img className="img img-responsive" src={`../images/GBYTE.png`} />)
+                        (<img className="img img-responsive" src={`../images/${coin.symbol}.png`} alt="logo"/>) : 
+                        (<img className="img img-responsive" src={`../images/GBYTE.png`} alt="default logo"/>)
                         }
                         <hr />
                         <Button color="primary" onClick={this.toggle}><i className="fas fa-chart-line"></i> Chart</Button>
@@ -131,7 +131,7 @@ class PureCoin extends React.Component {
                                 <small>Note: This may change if you take more time to get ready for the transaction.</small>
                             </div>
                             <div className="form-group">
-                                <label>Amount</label>
+                                <label>Amount (HKD)</label>
                                 <input type="number" className="form-control" value={this.state.amount} onChange={this.onChangeField.bind(this, "amount")}/>
                                 { this.state.lessThenLimit ? (
                                     <small className="text-danger">Sorry !! Minimum expense amount is HKD 100.</small>)
@@ -154,7 +154,7 @@ class PureCoin extends React.Component {
 }
 
 const Coin = connect((rootState, ownProps) => ({
-    coin: rootState.coin.coins[parseInt(ownProps.match.params.id)],
+    coin: rootState.coin.coins[parseInt(ownProps.match.params.id, 10)],
     doneUpdating: rootState.transact.doneUpdating,
     coins: rootState.coin.coins,
     amount: rootState.account.account
