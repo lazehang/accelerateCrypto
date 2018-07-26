@@ -2,10 +2,6 @@ import * as React from 'react';
 import {Badge} from 'reactstrap';
 
 export default class ChangeBadge extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         return (
             <Badge color={this.props.change > 0 ? 'success':'danger'}>

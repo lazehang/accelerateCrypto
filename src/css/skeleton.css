@@ -1,0 +1,17 @@
+.skel-img {
+    height: 150px;
+    width: 150px;
+    background: grey;
+}
+
+.skel-text {
+    height: 10px;
+    background: grey;
+}
+
+.skel-button {
+    height: 20px;
+    width: 130px;
+    background: grey;
+    margin: auto;
+}

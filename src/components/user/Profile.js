@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import UserCoinList from './UserCoinList';
 import UserDetail from './UserDetail';
 import {getUser} from '../../redux/user/actions';
+import ReactLoading from 'react-loading';
 
 class PureProfile extends React.Component {
 
@@ -15,14 +16,20 @@ class PureProfile extends React.Component {
 
     render() {
         
-            return (
+        return (
             <section id="profile">
                 <div className="container">
                     <div className="row">
                     <div className="col-lg-12 mx-auto text-center">
-                        
-                        { this.props.isFetching ? 'loading...': (
-                            <div> <UserDetail /> <UserCoinList /> </div> 
+                                   
+                        { this.props.isFetching ? <ReactLoading className="mx-auto" type="bars" color="teal" /> : (
+                            <div> 
+                                <UserDetail />
+                                
+                                <Link to="/transaction"> see trasaction history</Link>
+                                
+                                <UserCoinList /> 
+                            </div> 
                         )}
                     </div>
                     </div>

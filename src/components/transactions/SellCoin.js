@@ -3,7 +3,7 @@ import { sell } from '../../redux/transaction/actions';
 import { connect } from 'react-redux';
 import { getUserCoins } from '../../redux/account/actions';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
-import { withRouter } from 'react-router-dom';
+import ReactLoading from 'react-loading';
 
 
 class PureSellCoin extends React.Component {
@@ -30,14 +30,32 @@ class PureSellCoin extends React.Component {
         });
     }
 
+    componentWillMount = () => {
+        if(this.props.isFetching || this.props.isFetching === null){
+            this.props.loadCoins();
+        }
+    }
+
     componentDidMount = () => {
-        this.props.loadCoins();
-        setTimeout(() => {
-          this.setState({
-            isFetching: false
+      if(this.props.isFetching || this.props.isFetching === null){
+            setTimeout(() => {
+                this.setState({
+                    isFetching: this.props.isFetching
+                })
+            }, 2000);
+
+            if (this.state.isFetching) {
+                setTimeout(() => {
+                    this.setState({
+                        isFetching: this.props.isFetching
+                    })
+                }, 4000);
+            }
+        } else {
+            this.setState({
+                isFetching: this.props.isFetching
             })
-        }, 2000)
-        
+        }
     }
 
     onChangeField = (field, e) => {
@@ -108,7 +126,17 @@ class PureSellCoin extends React.Component {
     render() {
         
         if (this.state.isFetching) {
-            return 'loading...';
+            return (
+                <section>
+                    <div className="container">
+                        <div className="row">
+                            <div className='mx-auto'>
+                                <ReactLoading type="bars" color="teal" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
         } else {
         let coin = this.props.coin;
             
@@ -131,7 +159,7 @@ class PureSellCoin extends React.Component {
         <div className="container">
             <div className="row">
             <div className="col-lg-12 mx-auto text-center">
-                <img className="img img-responsive" src={`../images/${coin.symbol}.png`} />
+                <img className="img img-responsive" src={`../images/${coin.symbol}.png`} alt="logo"/>
                 <hr />
                 Total Coins: {coin.quantity}
                 <form>
@@ -148,29 +176,33 @@ class PureSellCoin extends React.Component {
                     </div>
                     <div className="form-group">
                         <label>Amount (HKD) </label>
-                        <input className="form-control" onChange={this.onChangeAmount} type="number" value={this.state.amount} />
+                        <input className="form-control" onChange={this.onChangeAmount} type="number" step="any" value={this.state.amount} />
                         <small>Note: This may change if you take more time to get ready for the transaction.</small>
                         <Alert toggle={this.onDismiss} isOpen={this.state.quantityExceeded} fade="false" color="danger">sorry amount exceeded</Alert>
                     </div>
+        
                     <div className="form-group">
                         <label>Selling Quantity</label>
-                        {this.state.selling}
+                        <br />
+                        <label >{this.state.selling} </label>
+                        <br />
                         <input type="range" onChange={this.handleRangeChange} id="cowbell" min="0" max={coin.quantity} value={this.state.selling} step="0.01" />
-                        <small>number of coins you want to sell</small>
+                        <br /><small>number of coins you want to sell</small>
                         </div>
-                    <input className="btn btn-primary" onClick={this.toggle} defaultValue="Sell" />
+                    <Button color="primary" onClick={this.toggle}>Sell</Button>
                 </form>
             </div>
             </div>
         </div>
         </section> 
-            )    }
+            )    
+        }
         
     }
 }
 
 const SellCoin = connect((state, ownProps) => ({
-    coin: state.account.coins.find(coin => coin.id === parseInt(ownProps.match.params.id)),
+    coin: state.account.coins.find(coin => coin.id === parseInt(ownProps.match.params.id, 10)),
     isFetching: state.account.isFetching
 }), (dispatch) => ({
     loadCoins: () => { dispatch(getUserCoins()) },

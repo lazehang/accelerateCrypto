@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { remoteFetchCoins } from '../redux/coin/actions';
-import Header from './Header';
 import { Link } from 'react-router-dom';
-import { CryptoCard } from 'react-ui-cards';
-import Loader from './Loader';
 import ChangeBadge from './ChangeBadge';
-import { Form, FormGroup, Label, Input, Card, Badge, Button, CardImg, CardTitle, CardText, CardColumns,
+import { Form, FormGroup, Label, Input, Card, Badge, CardImg, CardTitle, CardText, CardColumns,
  CardSubtitle, CardBody } from 'reactstrap';
+import ReactLoading from 'react-loading';
+
 // also available as `default`
 
 class PureCoinList extends React.Component {
@@ -17,8 +16,13 @@ class PureCoinList extends React.Component {
         this.state = {
             query: '',
             coins:{},
-            hasNoSearchResult: false
+            hasNoSearchResult: false,
+            componentsLoading: true
         }
+    }
+
+    componentDidMount = () => {
+
     }
 
 
@@ -32,7 +36,7 @@ class PureCoinList extends React.Component {
     ImageExist = (url) => {
         var img = new Image();
         img.src = url;
-        return img.height != 0;
+        return img.height !== 0;
     }
 
     handleSearchChange = (e) => {
@@ -42,14 +46,20 @@ class PureCoinList extends React.Component {
 
     }
 
-    search = () => {
+    round(num) {
+        return Math.round(num * 100) / 100;
+    }
+
+    search = (e) => {
+        e.preventDefault();
         const coins = this.props.coins;
         const query = this.state.query;
         let searchResults = [];
         Object.keys(coins).map((k,v) => {
-            if (coins[k].name.search(query) != -1 || coins[k].symbol.search(query) != -1) {
+            if (coins[k].name.search(query) !== -1 || coins[k].symbol.search(query) !== -1) {
                 searchResults.push(coins[k]);
             }
+            return searchResults;
         });
 
         if (searchResults.length === 0) {
@@ -81,25 +91,25 @@ class PureCoinList extends React.Component {
             coins = this.state.coins;
 
         }
-        console.log(this.state.hasNoSearchResult)
-
-
+       
         return (
 
             <section id="coinList">
                 <div className="container">
                     <div className="row">
                     <div className="col-lg-12 mx-auto text-center">
-                        <Form inline>
-                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                        <Form inline className="mx-auto">
+                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0 mx-auto">
                             <Label className="mr-sm-2">Search</Label>
-                            <Input type="text" id="examplePassword" onChange={this.handleSearchChange} value={this.state.query} placeholder="BTC" />
+                            <Input className="form-control" type="text" id="examplePassword" onChange={this.handleSearchChange} value={this.state.query} placeholder="BTC" />
+                            <button className="btn btn-primary form-control search-btn" onClick={this.search}><i className="fas fa-search"></i></button>                            
                             </FormGroup>
-                            <Button onClick={this.search}>Search</Button>
                         </Form>
+    
                         { this.state.query.length > 0 ? (<Badge onClick={this.removeSearch}>{this.state.query} x</Badge>) : '' }
 
-                        {
+                        <div className="py-4"> 
+                        { this.props.isFetching && this.state.componentsLoading ? <ReactLoading className="mx-auto" type="bars" color="teal" /> :
                             this.state.hasNoSearchResult ? 'No Results' :
                             (
                                 <CardColumns>
@@ -107,16 +117,16 @@ class PureCoinList extends React.Component {
                                     {
                                         Object.keys(coins).map((k,v) => (
 
-                                            <Card key={coins[k].id}>
+                                            <Card className="mx-auto" key={coins[k].id}>
                                             {
                                                 this.ImageExist(`./images/${coins[k].symbol}.png`) ?
-                                                <CardImg top className="card-img-over" src={`./images/${coins[k].symbol}.png`} alt="Card image cap" /> : <CardImg top className="card-img-over" src={`./images/GBYTE.png`} alt="Card image cap" />
+                                                <CardImg top className="card-img-over mx-auto" src={`./images/${coins[k].symbol}.png`} alt="Card image cap" /> : <CardImg top className="card-img-over mx-auto" src={`./images/GBYTE.png`} alt="Card image cap" />
                                             }
 
                                                 <CardBody>
                                                 <CardTitle>{coins[k].name}</CardTitle>
                                                 <CardSubtitle>{coins[k].symbol}</CardSubtitle>
-                                                <CardText>HKD {coins[k].quotes.HKD.price} <ChangeBadge change={coins[k].quotes.HKD.percent_change_24h} /></CardText>
+                                                <CardText>HKD {this.round(coins[k].quotes.HKD.price)} <ChangeBadge change={coins[k].quotes.HKD.percent_change_24h} /></CardText>
                                                 <Link to={`/coins/${coins[k].id}`}>Buy</Link>
                                                 </CardBody>
                                             </Card>
@@ -126,6 +136,7 @@ class PureCoinList extends React.Component {
                                 </CardColumns>
                             )
                         }
+                        </div>
 
                     </div>
                     </div>
@@ -137,7 +148,8 @@ class PureCoinList extends React.Component {
 }
 
 const CoinList = connect((rootState) => ({
-  coins: rootState.coin.coins
+  coins: rootState.coin.coins,
+  isFetching: rootState.coin.isFetching
 }), (dispatch) => ({
     loadCoins: () => { dispatch(remoteFetchCoins())}
 }))(PureCoinList);
