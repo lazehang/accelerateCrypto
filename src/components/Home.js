@@ -3,6 +3,7 @@ import{
   Link
 } from 'react-router-dom';
 import '../css/main.css'
+import AdSense from 'react-adsense';
 
 export default class Home extends React.Component {
     render() {
@@ -33,6 +34,14 @@ export default class Home extends React.Component {
                     </div>
                 </div>
                 </section>
+
+                <AdSense.Google
+                    client='ca-pub-5912085209342908'
+                    slot='5341547510'
+                    style={{ display: 'block' }}
+                    format='auto'
+                    responsive="true"
+                    />
 
                 <section id="services">
                 <div className="container">

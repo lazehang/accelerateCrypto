@@ -6207,6 +6207,10 @@ re-base@3.2.2:
   dependencies:
     firebase "^4.5.0"
 
+react-adsense@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/react-adsense/-/react-adsense-0.0.5.tgz#875582f706042c163f03aee99fe955a084762418"
+
 react-anchor-link-smooth-scroll@^1.0.10:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/react-anchor-link-smooth-scroll/-/react-anchor-link-smooth-scroll-1.0.10.tgz#2c94048592bed855f3bf5d0bd6ec2796279e0c7e"
