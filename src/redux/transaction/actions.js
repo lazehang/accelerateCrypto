@@ -1,18 +1,19 @@
 import axios from 'axios';
 
 const token = localStorage.getItem("token");
-
-const user_id = localStorage.getItem("user_id");
-
 export const ADD_TO_TRANSACT = 'ADD_TO_TRANSACT';
 
-export function buy(amount, coin_id, coinQuantity) {
+export function buy(amount, coin_id, coinQuantity, userid) {
+    const user_id = localStorage.getItem("user_id");
+
     return (dispatch) => {
+        const userId = (userid === "") ? user_id:userid
+        console.log(userid);
         return axios.post(process.env.REACT_APP_API_SERVER + 'transact/buy', {
             amount: amount,
             coin_id: coin_id,
             coinQuantity: coinQuantity,
-            id: user_id
+            id: userId
         }, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -24,6 +25,8 @@ export function buy(amount, coin_id, coinQuantity) {
 }
 
 export function sell(amount, coin_id, coinQuantity) {
+    const user_id = localStorage.getItem("user_id");
+
     return (dispatch) => {
         return axios.post(process.env.REACT_APP_API_SERVER + 'transact/sell', {
             amount: amount,
@@ -40,8 +43,9 @@ export function sell(amount, coin_id, coinQuantity) {
     }
 }
 
-export function getReady(amount, coin_id) {
+export function getReady(amount, coin_id, userid) {
     return (dispatch) => {
+        const user_id = localStorage.getItem("user_id");
 
         axios.post(process.env.REACT_APP_API_SERVER + 'transact/ready', {
                 amount,
@@ -59,6 +63,7 @@ export function getReady(amount, coin_id) {
 }
 
 export function addToTransact(amount, coin_id, coinQuantity, price) {
+
     return {
         amount,
         coin_id,

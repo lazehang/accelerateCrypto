@@ -3,7 +3,10 @@ import { ADD_USER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_STATE } from "./actions"
 const initialState = {
     isAuthenticated: (localStorage.getItem('token') != null),
     error: "",
-    success: ""
+    success: "",
+    user: {
+        id: ''
+    }
 };
 
 export function authReducer(state = initialState, action) {

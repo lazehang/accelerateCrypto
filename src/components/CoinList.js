@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { remoteFetchCoins } from '../redux/coin/actions';
 import { Link } from 'react-router-dom';
 import ChangeBadge from './ChangeBadge';
-import { Form, FormGroup, Label, Input, Card, Badge, CardImg, CardTitle, CardText, CardColumns,
+import { Form, FormGroup, Label, Input, Card, Badge, CardTitle, CardText, CardColumns,
  CardSubtitle, CardBody } from 'reactstrap';
 import ReactLoading from 'react-loading';
+import Img from 'react-image'
 
 // also available as `default`
 
@@ -31,12 +32,6 @@ class PureCoinList extends React.Component {
         this.setState({
             coins: this.props.coins
         })
-    }
-
-    ImageExist = (url) => {
-        var img = new Image();
-        img.src = url;
-        return img.height !== 0;
     }
 
     handleSearchChange = (e) => {
@@ -118,16 +113,16 @@ class PureCoinList extends React.Component {
                                         Object.keys(coins).map((k,v) => (
 
                                             <Card className="mx-auto" key={coins[k].id}>
-                                            {
-                                                this.ImageExist(`./images/${coins[k].symbol}.png`) ?
-                                                <CardImg top className="card-img-over mx-auto" src={`./images/${coins[k].symbol}.png`} alt="Card image cap" /> : <CardImg top className="card-img-over mx-auto" src={`./images/GBYTE.png`} alt="Card image cap" />
-                                            }
+                                        
+                                                <Img className="card-img-over mx-auto card-img-top" src={[
+                                                    `./images/${coins[k].symbol}.png`
+                                                ]} />
 
                                                 <CardBody>
-                                                <CardTitle>{coins[k].name}</CardTitle>
+                                                <CardTitle><Link to={`/coins/${coins[k].id}`}>{coins[k].name}</Link></CardTitle>
                                                 <CardSubtitle>{coins[k].symbol}</CardSubtitle>
                                                 <CardText>HKD {this.round(coins[k].quotes.HKD.price)} <ChangeBadge change={coins[k].quotes.HKD.percent_change_24h} /></CardText>
-                                                <Link to={`/coins/${coins[k].id}`}>Buy</Link>
+                                                <Link to={`/coins/${coins[k].id}`} class="btn btn--teal">Buy</Link>
                                                 </CardBody>
                                             </Card>
 

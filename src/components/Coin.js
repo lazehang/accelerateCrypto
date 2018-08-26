@@ -5,6 +5,7 @@ import {getReady} from '../redux/transaction/actions';
 import { Button, Modal, ModalBody } from 'reactstrap';
 import TradingViewWidget, { Themes } from 'react-tradingview-widget';
 import ReactLoading from 'react-loading';
+import Img from 'react-image';
 
 
 class PureCoin extends React.Component {
@@ -59,7 +60,7 @@ class PureCoin extends React.Component {
     getReady = () => {
         if (this.state.amount >= 100) {
             if (this.state.amount < this.props.amount) {
-                this.props.getReady(this.state.amount, this.props.coin.id);
+                this.props.getReady(this.state.amount, this.props.coin.id, this.props.userid ? this.props.userid : '' );
                 setTimeout(() => {
                     if (this.props.doneUpdating) {
                     this.redirectToBuy();
@@ -113,21 +114,20 @@ class PureCoin extends React.Component {
                                 />
                             </ModalBody>
                         </Modal>
-                        {
-                        this.ImageExist(`../images/${coin.symbol}.png`) ? 
-                        (<img className="img img-responsive" src={`../images/${coin.symbol}.png`} alt="logo"/>) : 
-                        (<img className="img img-responsive" src={`../images/GBYTE.png`} alt="default logo"/>)
-                        }
-                        <hr />
-                        <Button color="primary" onClick={this.toggle}><i className="fas fa-chart-line"></i> Chart</Button>
-                        <form>
+
+                        <Img className="img img-responsive" src={`../images/${coin.symbol}.png`} />
+                        
+                        <br />
+                        <Button color="primary" onClick={this.toggle}><i className="fas fa-chart-line"></i> View Chart</Button>
+                        <br/>
+                        <form className="mt-3">
                             <div className="form-group">
-                            <label>Coin Name</label>
+                                <label>Coin Name</label>
                                 <input className="form-control" type="text" defaultValue={coin.name} disabled />
                             </div>
                             <div className="form-group">
                                 <label>Rate (HKD) </label>
-                                <input className="form-control" type="text" defaultValue={coin.quotes.HKD.price} />
+                                <input className="form-control" type="text" defaultValue={coin.quotes.HKD.price} disabled />
                                 <small>Note: This may change if you take more time to get ready for the transaction.</small>
                             </div>
                             <div className="form-group">
@@ -157,10 +157,11 @@ const Coin = connect((rootState, ownProps) => ({
     coin: rootState.coin.coins[parseInt(ownProps.match.params.id, 10)],
     doneUpdating: rootState.transact.doneUpdating,
     coins: rootState.coin.coins,
-    amount: rootState.account.account
+    amount: rootState.account.account,
+    userid: rootState.user.user.id
   }), (dispatch) => ({
     loadCoins: () => { dispatch(remoteFetchCoins()) },
-    getReady: (amount, coin_id) => { dispatch(getReady(amount, coin_id))}
+    getReady: (amount, coin_id, userid) => { dispatch(getReady(amount, coin_id, userid))}
 }))(PureCoin);
 
 export default Coin;

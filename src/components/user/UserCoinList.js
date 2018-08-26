@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { setPrice } from '../../redux/account/actions'
 import ChangeBadge from '../ChangeBadge';
+import Img from 'react-image'
 
 class PureUserCoinList extends React.Component {
 
@@ -32,7 +33,7 @@ class PureUserCoinList extends React.Component {
               <tr key={coin.id}>
                 <td>{coin.id}</td>
                 <td>{coin.name}</td>
-                <td><img className="img card-img-over" src={`./images/${coin.symbol}.png`} /></td>
+                <td><Img className="img card-img-over" src={`./images/${coin.symbol}.png`} /></td>
                 <td>{coin.quantity}</td>
                 <td>{'HKD ' + coin.quotes.HKD.price} <ChangeBadge change={coin.quotes.HKD.percent_change_24h} /></td>
                 <td><Link to={`/sell/${coin.id}`}>Sell</Link></td>

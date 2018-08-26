@@ -67,7 +67,7 @@ class PureBuyCoin extends React.Component {
     }
 
     buy = () => {
-        this.props.buy(this.props.coin.amount, this.props.coin.coin_id, this.props.coin.coinQuantity)
+        this.props.buy(this.props.coin.amount, this.props.coin.coin_id, this.props.coin.coinQuantity, this.props.userid)
         this.setState({
             success: true
         })
@@ -124,10 +124,11 @@ class PureBuyCoin extends React.Component {
 
 const BuyCoin = connect((state) => ({
     coin: state.transact.coin,
-    coins: state.coin.coins
+    coins: state.coin.coins,
+    userid: state.auth.user.id
 }), (dispatch) => ({
     loadCoins: () => { dispatch(remoteFetchCoins())},
-    buy: (amount, coinId, coinQuantity) => {dispatch(buy(amount, coinId, coinQuantity))}
+    buy: (amount, coinId, coinQuantity,userid) => {dispatch(buy(amount, coinId, coinQuantity, userid))}
 }))(PureBuyCoin);
 
 export default BuyCoin;

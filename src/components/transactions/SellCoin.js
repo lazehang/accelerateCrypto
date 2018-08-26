@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getUserCoins } from '../../redux/account/actions';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
 import ReactLoading from 'react-loading';
+import Img from 'react-image'
 
 
 class PureSellCoin extends React.Component {
@@ -159,7 +160,7 @@ class PureSellCoin extends React.Component {
         <div className="container">
             <div className="row">
             <div className="col-lg-12 mx-auto text-center">
-                <img className="img img-responsive" src={`../images/${coin.symbol}.png`} alt="logo"/>
+                <Img className="img img-responsive" src={`../images/${coin.symbol}.png`} alt="logo"/>
                 <hr />
                 Total Coins: {coin.quantity}
                 <form>

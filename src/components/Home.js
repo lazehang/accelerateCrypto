@@ -22,7 +22,7 @@ export default class Home extends React.Component {
                     </div>
                 </section>
 
-                <section className="bg-primary" id="about">
+                <section className="bg-dark" id="about">
                 <div className="container">
                     <div className="row">
                     <div className="col-lg-8 mx-auto text-center">

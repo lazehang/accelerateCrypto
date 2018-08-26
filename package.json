@@ -16,6 +16,7 @@
     "react-adsense": "^0.0.5",
     "react-anchor-link-smooth-scroll": "^1.0.10",
     "react-dom": "^16.3.0-alpha.1",
+    "react-image": "^1.4.1",
     "react-loaders": "^3.0.1",
     "react-loading": "^2.0.2",
     "react-modal": "^3.4.5",

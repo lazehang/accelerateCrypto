@@ -1,16 +1,35 @@
-#mainNav {
-    box-shadow: 0px 1px grey !important;
+body {
+    background: #2b2c2c;
+    color: #fff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: teal;
+}
+
+.btn--teal {
+    border: 1px teal solid;
+}
+
+.navbar {
+    box-shadow: 0px 1px 6px #191717 !important;
+    height: 4.5rem;
 }
 
 .card {
     min-height: 0;
-    background: #fff;
+    background: transparent;
+    border-color: #425353;
 }
 
 .card-img-over {
     width: 100px;
     height: auto;
-    margin-top: 5px;
+    margin-top: 5%;
 }
 
 .chart-modal-body {
@@ -86,4 +105,20 @@ a.navbar-brand:active {
         margin-left: auto;
         margin-top: 1rem;
     }
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item:hover,
+.nav-tabs .nav-item:focus {
+    color: teal;
+    background: transparent;
+}
+
+.nav-tabs .nav-item.show .nav-link {
+    background: transparent;
+    color: #fff;
+}
+
+th {
+    color: teal;
 }
