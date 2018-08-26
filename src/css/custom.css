@@ -17,7 +17,6 @@ h5 {
 
 .navbar {
     box-shadow: 0px 1px 6px #191717 !important;
-    height: 4.5rem;
 }
 
 .card {
@@ -111,7 +110,6 @@ a.navbar-brand:active {
 .nav-tabs .nav-item:hover,
 .nav-tabs .nav-item:focus {
     color: teal;
-    background: transparent;
 }
 
 .nav-tabs .nav-item.show .nav-link {

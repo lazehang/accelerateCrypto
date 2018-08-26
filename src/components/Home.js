@@ -29,7 +29,7 @@ export default class Home extends React.Component {
                         <h2 className="section-heading text-white">We've got what you need!</h2>
                         <hr className="light my-4" />
                         <p className="text-faded mb-4">Get your hands on virtual cryptos before going for the real deal</p>
-                        <Link className="btn btn-light btn-xl js-scroll-trigger" to="/coins">Get Started!</Link>
+                        <Link className="btn btn--teal btn-xl js-scroll-trigger" to="/coins">Get Started!</Link>
                     </div>
                     </div>
                 </div>
