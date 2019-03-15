@@ -73,6 +73,7 @@ export function logout() {
         localStorage.removeItem("username");
         localStorage.removeItem("user_id")
         dispatch(logoutState());
+        
     }
 
 }
